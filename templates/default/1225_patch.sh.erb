@@ -1,0 +1,21 @@
+#!/usr/bin/ksh
+
+export   patch="<%= node[:ebs][:patch1225] %>"
+
+
+.  <%= node[:ebs][:app][:bin] %>/funs
+srcenv
+
+   # ===============
+   # Make sure env file worked
+   #
+export   APPL_TOP=${APPL_TOP?}
+export  PATCH_TOP=${PATCH_TOP?}
+
+cd $PATCH_TOP
+echo adop phase=apply apply_mode=downtime patches=${patch}
+     adop phase=apply apply_mode=downtime patches=${patch} <<-EOF
+<%= node[:ebs][:appspw] %>
+<%= node[:ebs][:syspw] %>
+<%= node[:ebs][:wlspw] %>
+EOF

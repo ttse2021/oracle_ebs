@@ -1,0 +1,55 @@
+#!/usr/bin/ksh
+
+ETCDIR="<%= node[:ebs][:etcc][:rundir] %>"
+APPTXT="<%= node[:ebs][:app][:contxtfs1] %>"
+APPSPW="<%= node[:ebs][:appspw] %>"
+outapp="<%= node[:ebs][:app][:outdir] %>"
+
+
+if [ ! -d $ETCDIR ] ; then echo "Cannot find $ETCDIR. exiting..."; exit 4 ; fi
+if [ ! -f $APPTXT ] ; then echo "Cannot find $APPTXT. exiting..."; exit 8;  fi
+
+   # ===============
+   # Source Environment if exists
+   # ===============
+function srcenv
+{
+if [ "X${COMMON_TOP}" != "X" ] ; then
+  echo "Already sourced";
+  return 0;
+fi
+export _FS1ENV="<%= node[:ebs][:app][:runenv] %>"
+export _EBSAPP="<%= node[:ebs][:vg][:app_fs_nam] %>/EBSapps.env"
+if  [ -f "${_EBSAPP}" ] ; then
+  echo ". ${_EBSAPP} run"
+. ${_EBSAPP} run
+  return 0
+fi
+if  [ -f "${_FS1ENV}" ] ; then
+  echo ". ${_FS1ENV}"
+. ${_FS1ENV}
+  return 0
+fi
+}
+srcenv
+   # ===============
+
+cd $ETCCDIR;
+
+command="ksh $ETCDIR/checkMTpatch.sh";
+context=$APPTXT;
+outfile="$outapp/out.etcc_app"
+
+echo "${command} contextfile=${context}"
+${command} contextfile=${context} <<-EOF > ${outfile}
+$APPSPW
+EOF
+
+cnt=`fgrep 'All required' $outfile | wc -l`
+echo "Count: $cnt"
+if [ $cnt != 7 ] ; then
+  echo "Issues with App patches. Exiting..."
+  exit 64
+fi
+
+exit 0

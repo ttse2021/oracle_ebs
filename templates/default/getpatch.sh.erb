@@ -1,0 +1,73 @@
+#!/usr/bin/ksh
+
+export _zipdir=<%= node[:ebs][:stage][:zips] %>
+
+bn=`basename $0`
+
+   #*****************************************************************#
+   #                                                                 #
+   #                   Function Definitions                          #
+   #                                                                 #
+   #*****************************************************************#
+
+   # A FUNCTION that displays USAGE and OPTION info
+function show_usage_and_exit
+{
+   printf "\nUsage: $0 -p patchnum -t target_directory\n"
+   exit -1
+}
+
+   # Check OPTIONS
+while getopts p:t: _option $*
+do
+   case $_option in
+      p) _pnum="$OPTARG" ;;
+      t) _tgtd="$OPTARG" ;;
+      *) printf "\nInvalid Option Specified: %s\n\n" $OPTARG
+         show_usage_and_exit ;;
+   esac
+done
+shift $(($OPTIND - 1))
+
+if [ "X${_pnum}" == "X" ]      ; then show_usage_and_exit;  fi
+if [ "X${_tgtd}" == "X" ]      ; then show_usage_and_exit;  fi
+
+   #*****************************************************************#
+   #                                                                 #
+   #                           Main Program                          #
+   #                                                                 #
+   #*****************************************************************#
+
+if [ "X${_pnum}" == "X" ]      ; then show_usage_and_exit;  fi
+if [ "X${_tgtd}" == "X" ]      ; then show_usage_and_exit;  fi
+
+pdir="${_tgtd}/${_pnum}"
+
+if [ -d $pdir ] ; then
+  echo "Directory already exists. Done..."
+  exit 0
+fi
+
+   # make sure we can get to the target
+   #
+cd ${_tgtd}
+here=`pwd`
+if [ "$here" != "${_tgtd}" ] ; then
+  echo "Cannot CD to Targetdir: ${_tgtd}... Aborting"
+  exit 5
+fi
+
+found="false"
+for i in `ls ${_zipdir}/*${_pnum}*`
+do
+  found="true"
+  echo "(cd ${_tgtd}; /usr/bin/unzip -oq $i)"
+        (cd ${_tgtd}; /usr/bin/unzip -oq $i)
+  RET=$?
+  if [ "X$RET" != "X0" ] ; then
+   echo "Aborting. Unzip failed..."
+   exit 10
+  fi
+done
+
+if [ "X$found" != "Xtrue" ] ; then echo "Patch not found: $_pnum. Aborting.."; exit 6; fi

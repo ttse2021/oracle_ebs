@@ -1,0 +1,45 @@
+
+   #################################
+   # Values used set with chef
+   #################################
+
+_ebsbin="<%= node[:ebs][:app][:bin] %>"
+  _base="<%= node[:ebs][:vg][:app_fs_nam] %>"
+  _home="<%= node[:ebs][:db][:orahome3] %>"
+   _sid="<%= node[:ebs][:db][:sid] %>"
+ _hname="<%= node[:hostname] %>"
+  _comp="<%= node[:ebs][:cmd][:compiler] %>"
+   _top="<%= node[:ebs][:seedTable][:patchdir] %>"
+_contxt="${_sid}_${_hname}"
+   _scr="${_home}/appsutil/scripts/${_contxt}"
+
+export FS1ENVF="${_base}/fs1/EBSapps/appl/APPS${_contxt}.env"
+export FS2ENVF="${_base}/fs2/EBSapps/appl/APPS${_contxt}.env"
+
+      #add compiler location
+PATH=/usr/ccs/bin:/usr/bin:/etc:/usr/sbin:/usr/ucb:$HOME/bin:/usr/bin/X11:${_comp}/bin:.
+export PATH
+
+
+   ######################################
+   # common, independent of install stage
+   ######################################
+
+export AIXTHREAD_SCOPE=S
+export EDITOR=/usr/bin/vi
+alias 2top="cd ${top}; pwd"
+
+if [[ $- = *i* ]]; then set -o vi; stty erase "^?"; fi
+
+alias ls='ls -FC'
+alias psall="ps -aef | fgrep $USER"
+export PS1='[$USER] > '
+
+alias 2h="cd $ORACLE_HOME; pwd"
+alias stopwls="${_ebsbin}/stopwls.sh"
+alias startwls="${_ebsbin}/startwls.sh"
+alias stopapp="${_ebsbin}/stopapp.sh"
+alias startapp="${_ebsbin}/startapp.sh"
+alias psall="ps -aef | fgrep $USER"
+alias runenv=". ${FS1ENVF}"
+alias patenv=". ${FS2ENVF}"

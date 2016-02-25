@@ -1,0 +1,39 @@
+#!/usr/bin/ksh
+
+export   _pat1="<%= node[:ebs][:post1225][:patch1] %>"
+
+   # ===============
+   # Source Environment if exists
+   # ===============
+function srcenv
+{
+if [ "X${COMMON_TOP}" != "X" ] ; then
+  echo "Already sourced";
+  return 0;
+fi
+export _FS1ENV="<%= node[:ebs][:app][:runenv] %>"
+export _EBSAPP="<%= node[:ebs][:vg][:app_fs_nam] %>/EBSapps.env"
+if  [ -f "${_EBSAPP}" ] ; then
+  echo ". ${_EBSAPP} run"
+. ${_EBSAPP} run
+  return 0
+fi
+if  [ -f "${_FS1ENV}" ] ; then
+  echo ". ${_FS1ENV}"
+. ${_FS1ENV}
+  return 0
+fi
+}
+srcenv
+   # ===============
+
+   # Make sure env file worked
+   #
+export  APPL_TOP_NE=${APPL_TOP_NE?}
+
+echo adop phase=apply patches=${_pat1} hotpatch=yes abandon=yes
+     adop phase=apply patches=${_pat1} hotpatch=yes abandon=yes <<-EOF
+<%= node[:ebs][:appspw] %>
+<%= node[:ebs][:syspw] %>
+<%= node[:ebs][:wlspw] %>
+EOF

@@ -1,0 +1,5 @@
+#!/usr/bin/ksh
+
+cd <%= node[:ebs][:stage][:rapiddir] %>
+
+/bin/sh <%= node[:ebs][:stage][:rapiddir] %>/bin/checkOS.sh

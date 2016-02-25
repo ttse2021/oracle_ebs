@@ -1,0 +1,48 @@
+#!/usr/bin/ksh
+
+export    sid="<%= node[:ebs][:db][:sid] %>"
+export contxt="<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>"
+export bindir="<%= node[:ebs][:db][:bin] %>"
+export outdir="<%= node[:ebs][:db][:outdir] %>"
+export dbhome="<%= node[:ebs][:db][:usr][:homedir] %>"
+export   outf="${outdir}/out.startdb"
+
+. $dbhome/.profile
+
+
+export ORACLE_HOME=${ORACLE_HOME?}
+export  SCR="${ORACLE_HOME?}/appsutil/scripts/${contxt}"
+
+
+.  ${bindir}/funs
+if lsnr_is_up ; 
+then 
+  echo "Listener is already Running ..."; 
+  ret=0
+else
+  rm -f $outf;
+  touch $outf;
+  
+  echo "========= ${SCR}/addlnctl.sh start $sid  ========="
+  echo "========= ${SCR}/addlnctl.sh start $sid  =========" >> $outf 2>&1
+  ${SCR}/addlnctl.sh start $sid                             >> $outf 2>&1
+  ret=$?
+  
+  if [ $ret != 0 ] ; then echo "Error occcured: check file: $outf"; fi
+fi
+
+if dbms_is_up ; 
+then
+  echo "DBMS is already  Running ..."; 
+  ret=0
+else
+  echo "========= ${SCR}/addbctl.sh start $sid  ========="
+  echo "========= ${SCR}/addbctl.sh start $sid  ========="  >> $outf
+  ${SCR}/addbctl.sh start                                   >> $outf 2>&1
+  ret=$?
+  if [ $ret != 0 ] ; then echo "Error occcured: check file: $outf"; fi
+fi
+
+echo "Return is: $ret"
+exit $ret
+

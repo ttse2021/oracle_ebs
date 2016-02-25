@@ -1,0 +1,51 @@
+#!/usr/bin/ksh
+
+.  <%= node[:ebs][:app][:bin] %>/funs
+if app_is_up ; then echo "APP is already running"; exit 0 ; fi
+
+# Source the proper environment. 
+srcenv
+
+
+
+SCRIPTS="<%= node[:ebs][:vg][:app_fs_nam] %>/fs1/inst/apps/<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>/admin/scripts"
+
+   # the start apps script
+   #
+$SCRIPTS/adstrtal.sh <<EOF  > <%= node[:ebs][:app][:outdir] %>/out.startapp 2>&1
+<%= node[:ebs][:appsuser] %>
+<%= node[:ebs][:appspw] %>
+<%= node[:ebs][:wlspw] %>
+EOF
+ret=$?
+
+if [ $ret != 0 ] ; then 
+  echo "Error: check the output file: <%= node[:ebs][:app][:outdir] %>/out.startapp";
+fi
+exit $ret
+
+
+   # processes brought up by startapp
+   #   CYQLIB
+   #   FFTM
+   #   FNDCRM
+   #   FNDLIBR
+   #   FNDSM
+   #   INCTM
+   #   INVLIBR
+   #   MRCLIB
+   #   PALIBR
+   #   POXCON
+   #   RCVOLTM
+   #   adRegisterWLSListeners.log
+   #   adRegisterWLSListeners.pl
+   #   httpd.worker
+   #   odl_rotatelogs
+   #   opmn
+   #   oracle.apps.fnd.cp.gsf.GSMServiceController
+   #   oracle.apps.fnd.cp.gsm.GSMSvcComponentContainer
+   #   oracle.apps.iem.emta.gsm.IEMDPCART
+   #   rotatelogs
+   #   tnslsnr
+   #   weblog
+   #   weblogic.Server

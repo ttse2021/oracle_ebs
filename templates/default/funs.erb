@@ -1,0 +1,109 @@
+#!/bin/user/ksh
+
+
+function app_is_up   { 
+  ps -aef | fgrep FNDLIBR | fgrep -v fgrep > /dev/null 2>&1 
+  RET=$?
+  #echo "app_is_up: $RET" 
+  return $RET
+}
+
+function app_is_down { 
+  app_is_up; 
+  RET=$?;  
+  (( RET=RET == 0  )) ; 
+  #echo "app_is_down: $RET" 
+  return   $RET 
+}
+
+function wls_is_up   {
+  ps -aef | fgrep $LOGNAME | fgrep -v fgrep | fgrep 'StartScriptName=startWebLogic.sh' > /dev/null
+  RET1=$?
+  ps -aef | fgrep $LOGNAME | fgrep -v fgrep | fgrep 'weblogic.Name=AdminServer' > /dev/null
+  RET2=$?
+  return $RET1+$RET2
+}
+
+function wls_is_down { 
+  wls_is_up; 
+  RET=$?;  
+  (( RET=RET == 0  )) ; 
+  #echo "wls_is_down: $RET" 
+  return   $RET 
+}
+
+function lsnr_is_up
+{
+  check_stat=`ps -ef | grep ${USER} | grep tnslsnr | fgrep -v grep |wc -l`;
+  oracle_num=`expr $check_stat`
+  if [ $oracle_num -lt 1 ]
+  then
+    #echo Nope tnslsnr is not up and running
+    return 16
+  fi
+  return 0
+}
+
+
+function dbms_is_up {
+  check_stat=`ps -ef | grep ${ORACLE_SID?} |grep pmon|wc -l`;
+  oracle_num=`expr $check_stat`
+  if [ $oracle_num -lt 1 ]
+  then
+    #echo Nope DBMS is not up and running
+    return 16
+  fi
+
+
+  rm -f /tmp/check_${ORACLE_SID?}.ora
+  #*************************************************************
+  # Test to see if Oracle is accepting connections
+  #*************************************************************
+  ${ORACLE_HOME}/bin/sqlplus -s "/ as sysdba"  > /tmp/check_${ORACLE_SID?}.ora << EOF
+select * from v\$database;
+exit
+EOF
+  check_stat=`cat /tmp/check_${ORACLE_SID?}.ora | grep -i error | wc -l`;
+  oracle_num=`expr $check_stat`
+  if [ $oracle_num -ne 0 ]
+  then
+    #echo dbms is not taking connections.
+    return 8
+  else
+   #echo dbms is up
+   return 0
+  fi
+}
+
+function dbms_is_down {
+  check_stat=`ps -ef | grep ${ORACLE_SID?} |grep pmon|wc -l`;
+  oracle_num=`expr $check_stat`
+  if [ $oracle_num -eq 0 ]
+  then
+    #echo DBMS is down
+    return 0
+  fi
+  return 16
+}
+   # ===============
+   # Source Environment if exists
+   # ===============
+function srcenv
+{
+if [ "X${COMMON_TOP}" != "X" ] ; then
+  echo "Already sourced";
+  return 0;
+fi
+export _FS1ENV="<%= node[:ebs][:app][:runenv] %>"
+export _EBSAPP="<%= node[:ebs][:vg][:app_fs_nam] %>/EBSapps.env"
+if  [ -f "${_EBSAPP}" ] ; then
+  echo ". ${_EBSAPP} run"
+. ${_EBSAPP} run
+  return 0
+fi
+if  [ -f "${_FS1ENV}" ] ; then
+  echo ". ${_FS1ENV}"
+. ${_FS1ENV}
+  return 0
+fi
+}

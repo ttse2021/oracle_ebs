@@ -1,0 +1,50 @@
+#!/usr/bin/ksh
+
+export    sid="<%= node[:ebs][:db][:sid] %>"
+export contxt="<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>"
+export bindir="<%= node[:ebs][:db][:bin] %>"
+export outdir="<%= node[:ebs][:db][:outdir] %>"
+export dbhome="<%= node[:ebs][:db][:usr][:homedir] %>"
+export   outf="${outdir}/out.stopdb"
+
+. $dbhome/.profile
+
+export ORACLE_HOME=${ORACLE_HOME?}
+
+rm -f $outf; touch $outf;
+export SCR="$ORACLE_HOME/appsutil/scripts/$contxt"
+
+
+.  $bindir/funs
+if dbms_is_down ; then 
+  echo "DBMS is already down ..."; 
+  ret=0;
+else
+  # Stop the dbms FIRST
+  #
+  echo "========= ${SCR}/addbctl.sh stop immediate =========" 
+  echo "========= ${SCR}/addbctl.sh stop immediate ========="  >> $outf 2>&1
+  ${SCR}/addbctl.sh stop immediate                             >> $outf 2>&1
+  ret=$?
+  if [ $ret != 0 ] ; then 
+    echo "Error occcured during dbms shutdown: check file: $outf"
+  fi
+fi
+
+     # Then stop the listener
+     #
+if ! lsnr_is_up ; then
+  echo "Listener is already down ..."; 
+  ret=0;
+else
+  echo "========= ${SCR}/addlnctl.sh stop $sid ========="
+  echo "========= ${SCR}/addlnctl.sh stop $sid ========="       >> $outf 2>&1
+  ${SCR}/addlnctl.sh stop $sid                                  >> $outf 2>&1
+  ret=$?
+  if [ $ret != 0 ] ; then 
+    echo "Error occcured during lsnrstop: check file: $outf"
+  fi
+fi
+
+echo "Return is: $ret"
+exit $ret;

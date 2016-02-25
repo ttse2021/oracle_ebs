@@ -1,0 +1,100 @@
+#!/usr/bin/ksh
+
+   #################################################
+   #             ATTRIBUTES USED                   #
+   #################################################
+   # 
+export  _patchdir="<%= node[:ebs][:seedTable][:patchdir] %>"
+export   _APPHOME="<%= node[:ebs][:vg][:app_fs_nam] %>"
+export       _sid="<%= node[:ebs][:db][:sid] %>"
+export     _hname="<%= node[:hostname] %>"
+export     _apppw="<%= node[:ebs][:appspw] %>"
+export     _syspw="<%= node[:ebs][:syspw] %>"
+export     _wlspw="<%= node[:ebs][:wlspw] %>"
+export    ADOPCMD="<%= node[:ebs][:seedTable][:adop_cmd] %>"
+
+   #*****************************************************************#
+   #                                                                 #
+   #                   Function Definitions                          #
+   #                                                                 #
+   #*****************************************************************#
+
+   # A FUNCTION that displays USAGE and OPTION info
+function show_usage_and_exit
+{
+   printf "\nUsage: $0 -p patchnum [-x]\n"
+   printf "\n-x - indicates that adop needs an extra empty line input argument.\n"
+   exit -1
+}
+
+   # Check OPTIONS
+while getopts p:x _option $*
+do
+   case $_option in
+      p) _pnum="$OPTARG" ;;
+      x) _xtraline="true" ;;
+      *) printf "\nInvalid Option Specified: %s\n\n" $OPTARG
+         show_usage_and_exit ;;
+   esac
+done
+shift $(($OPTIND - 1))
+
+if [ "X${_pnum}" == "X" ]      ; then show_usage_and_exit;  fi
+
+   #################################################
+   #             MAIN PROGRAM                      #
+   #################################################
+   # 
+
+   # ===============
+   # Source Environment if exists
+   # ===============
+function srcenv
+{
+if [ "X${COMMON_TOP}" != "X" ] ; then
+  echo "Already sourced";
+  return 0;
+fi
+export _FS1ENV="<%= node[:ebs][:app][:runenv] %>"
+export _EBSAPP="<%= node[:ebs][:vg][:app_fs_nam] %>/EBSapps.env"
+if  [ -f "${_EBSAPP}" ] ; then
+  echo ". ${_EBSAPP} run"
+. ${_EBSAPP} run
+  return 0
+fi
+if  [ -f "${_FS1ENV}" ] ; then
+  echo ". ${_FS1ENV}"
+. ${_FS1ENV}
+  return 0
+fi
+}
+srcenv
+   # ===============
+
+
+if [ ! -d "${_patchdir}/${_pnum}" ] ; then echo "Missing:${_patchdir}/${_pnum}": exit 8; fi
+
+cd ${_patchdir}
+
+   # TWO VERSIONS
+   # (one with a blank empty input lines)
+echo $ADOPCMD phase=apply patches=${_pnum} hotpatch=yes abandon=yes
+
+if [ "X${_xtraline}" != "X" ] ; then
+echo "Doing extra line"
+export OUTFILE="<%= node[:ebs][:app][:outdir] %>/outx_${_pnum}"
+     $ADOPCMD phase=apply patches=${_pnum} hotpatch=yes abandon=yes <<EOF1  > $OUTFILE  2>&1
+${_apppw}
+${_syspw}
+${_wlspw}
+
+EOF1
+else
+echo "Doing just 3 lines"
+export OUTFILE="<%= node[:ebs][:app][:outdir] %>/out.${_pnum}"
+     $ADOPCMD phase=apply patches=${_pnum} hotpatch=yes abandon=yes <<EOF2  > $OUTFILE  2>&1
+${_apppw}
+${_syspw}
+${_wlspw}
+EOF2
+fi

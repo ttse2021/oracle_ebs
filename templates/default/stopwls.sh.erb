@@ -1,0 +1,42 @@
+#!/usr/bin/ksh
+
+.  <%= node[:ebs][:app][:bin] %>/funs
+if wls_is_down ; then echo "WLS is already down"; exit 0 ; fi
+
+   # cleanup
+rm -f "<%= node[:ebs][:app][:outdir] %>/out.stopwls";
+touch "<%= node[:ebs][:app][:outdir] %>/out.stopwls";
+
+
+SCRIPTS="<%= node[:ebs][:vg][:app_fs_nam] %>/fs1/inst/apps/<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>/admin/scripts"
+ps -aef | fgrep $LOGNAME | fgrep -v fgrep | fgrep 'weblogic.Name=AdminServer' > /dev/null
+if [ $? == 0 ] ; then
+
+  echo "========= ${SCR}/adaminsrvctl.sh stop ========="           >> <%= node[:ebs][:app][:outdir] %>/out.stopwls 2>&1
+  $SCRIPTS/adadminsrvctl.sh stop <<EOF                             >> <%= node[:ebs][:app][:outdir] %>/out.stopwls 2>&1
+<%= node[:ebs][:wlspw] %>
+<%= node[:ebs][:appspw] %>
+EOF
+  ret=$?
+  if [ $ret != 0 ] ; then 
+    echo "Error occcured: check the output file: <%= node[:ebs][:app][:outdir] %>/out.stopwls"
+  fi
+fi
+
+ps -aef | fgrep $LOGNAME | fgrep -v fgrep | fgrep 'StartScriptName=startWebLogic.sh' > /dev/null
+if [ $? == 0 ] ; then
+  # adaminsrvctl doesn't shut down the node manager.
+  # So we will
+  echo "========= ${SCR}/adnodemgrctl.sh stop ========="           >> <%= node[:ebs][:app][:outdir] %>/out.stopwls 2>&1
+  $SCRIPTS/adnodemgrctl.sh stop <<EOF                              >> <%= node[:ebs][:app][:outdir] %>/out.stopwls 2>&1
+<%= node[:ebs][:wlspw] %>
+EOF
+  ret=$?
+  if [ $ret != 0 ] ; then 
+    echo "Error occcured: check the output file: <%= node[:ebs][:app][:outdir] %>/out.stopwls"
+  fi
+  # theres some very slow processes that come up. we have to wait.
+  sleep 10
+fi
+
+exit $ret

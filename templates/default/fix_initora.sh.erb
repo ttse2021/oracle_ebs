@@ -1,0 +1,77 @@
+#!/usr/bin/ksh
+
+set -x
+
+   #####################################################################
+   # Doc_id: 1623879.1 Section 14                                      #
+   #    Modify initialization parameters                               #
+   #####################################################################
+
+install_dir4="<%= node[:ebs][:db][:orahome4] %>"
+install_dir3="<%= node[:ebs][:db][:orahome3] %>"
+export bindir="<%= node[:ebs][:db][:bin] %>"
+
+
+export ORACLE_SID=${ORACLE_SID?}
+
+initf="$ORACLE_HOME/dbs/init${ORACLE_SID}.ora"
+
+   # Save the original.
+if [ ! -f ${initf}.orig ] ; then
+  if [ -f ${initf} ] ; then mv ${initf} ${initf}.orig; fi
+fi
+
+   #remove the current. we'll create
+   #
+rm -rf ${initf}
+
+
+   # create the new pfile
+   #
+sqlplus '/ as sysdba' <<EOF
+create pfile from spfile;
+exit;
+EOF
+
+if [ ! -f ${initf} ] ; then echo "pfile was not created"; exit 8; fi
+cp $initf ${initf}.b4_perl
+
+   # Modify the paths in the pfile
+   #
+perl -p -i -n -e "if ( m:${install_dir3}: ) { s:\$1:${install_dir4}:g; }" $initf
+
+   # Bring up the dbms with the new pfile, (so we can copy to spfile)
+   #
+ksh ${bindir}/stopdb.sh
+sqlplus '/ as sysdba' <<EOF
+startup pfile=$initf
+exit;
+EOF
+
+   # copy to spfile
+   #
+sqlplus '/ as sysdba' <<EOF
+create spfile from pfile;
+exit;
+EOF
+
+   # save for comparing
+   #
+mv $initf $initf.1st
+
+   # now bring up the spfile and we are done
+ksh ${bindir}/stopdb.sh
+ksh ${bindir}/startdb.sh
+
+
+   # lets check by copying the spfile back to pfile, and then comparing
+sqlplus '/ as sysdba' <<EOF
+create pfile from spfile;
+exit;
+EOF
+
+sqlplus '/ as sysdba' @${bindir}/initparms.sql
+
+echo "###### diff $initf $initf.1st ########"
+             diff $initf $initf.1st
+

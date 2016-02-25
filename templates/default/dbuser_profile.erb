@@ -1,0 +1,22 @@
+       #################################
+       # Values used set with chef
+       #################################
+
+_ebsbin="<%= node[:ebs][:db][:bin] %>"
+
+   ######################################
+   # common, independent of install stage
+   ######################################
+
+export EDITOR=/usr/bin/vi
+export DBMS_ENVFILE="${_ebsbin}/1123.env"
+
+alias ls='ls -FC'
+alias psall="ps -aef | fgrep $USER"
+export PS1='[$USER] > '
+
+if [[ $- = *i* ]]; then set -o vi; stty erase "^?"; fi
+
+echo "sourcing $DBMS_ENVFILE ..."
+. ${DBMS_ENVFILE?}
+

@@ -1,0 +1,30 @@
+#!/usr/bin/ksh
+
+export  _patchdir="<%= node[:ebs][:seedTable][:patchdir] %>"
+export   _APPHOME="<%= node[:ebs][:vg][:app_fs_nam] %>/fs1"
+export      _ENVF="APPS<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>.env"
+export patch_list="<%= node[:ebs][:txk_patches][:patchlst].join(',') %>"
+
+export _ENVF="${_APPHOME}/EBSapps/appl/${_ENVF}"
+
+if [ ! -f "${_ENVF}" ] ; then 
+  echo "APP $_ENVF env is missing"; 
+  exit 4;
+fi
+
+. ${_ENVF}
+
+cd ${_patchdir}
+
+   # Make sure env file worked
+   #
+export  APPL_TOP=${APPL_TOP?}
+export  APPL_TOP_NE=${APPL_TOP_NE?}
+
+echo $patch_list
+echo adop phase=apply patches=${patch_list} hotpatch=yes merge=yes abandon=yes
+     adop phase=apply patches=${patch_list} hotpatch=yes merge=yes abandon=yes <<-EOF
+<%= node[:ebs][:appspw] %>
+<%= node[:ebs][:syspw] %>
+<%= node[:ebs][:wlspw] %>
+EOF

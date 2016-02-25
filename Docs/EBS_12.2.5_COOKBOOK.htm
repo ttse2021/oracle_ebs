@@ -1,0 +1,2308 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>White Paper</title>
+
+<style id="dynCom" type="text/css"><!-- --></style>
+<script language="JavaScript"><!--
+function msoCommentShow(anchor_id, com_id)
+{
+	if(msoBrowserCheck()) 
+		{
+		c = document.all(com_id);
+		a = document.all(anchor_id);
+		if (null != c && null == c.length && null != a && null == a.length)
+			{
+			var cw = c.offsetWidth;
+			var ch = c.offsetHeight;
+			var aw = a.offsetWidth;
+			var ah = a.offsetHeight;
+			var x  = a.offsetLeft;
+			var y  = a.offsetTop;
+			var el = a;
+			while (el.tagName != "BODY") 
+				{
+				el = el.offsetParent;
+				x = x + el.offsetLeft;
+				y = y + el.offsetTop;
+				}
+			var bw = document.body.clientWidth;
+			var bh = document.body.clientHeight;
+			var bsl = document.body.scrollLeft;
+			var bst = document.body.scrollTop;
+			if (x + cw + ah / 2 > bw + bsl && x + aw - ah / 2 - cw >= bsl ) 
+				{ c.style.left = x + aw - ah / 2 - cw; }
+			else 
+				{ c.style.left = x + ah / 2; }
+			if (y + ch + ah / 2 > bh + bst && y + ah / 2 - ch >= bst ) 
+				{ c.style.top = y + ah / 2 - ch; }
+			else 
+				{ c.style.top = y + ah / 2; }
+			c.style.visibility = "visible";
+}	}	}
+function msoCommentHide(com_id) 
+{
+	if(msoBrowserCheck())
+		{
+		c = document.all(com_id);
+		if (null != c && null == c.length)
+		{
+		c.style.visibility = "hidden";
+		c.style.left = -1000;
+		c.style.top = -1000;
+		} } 
+}
+function msoBrowserCheck()
+{
+	ms = navigator.appVersion.indexOf("MSIE");
+	vers = navigator.appVersion.substring(ms + 5, ms + 6);
+	ie4 = (ms > 0) && (parseInt(vers) >= 4);
+	return ie4;
+}
+if (msoBrowserCheck())
+{
+	document.styleSheets.dynCom.addRule(".msocomanchor","background: infobackground");
+	document.styleSheets.dynCom.addRule(".msocomoff","display: none");
+	document.styleSheets.dynCom.addRule(".msocomtxt","visibility: hidden");
+	document.styleSheets.dynCom.addRule(".msocomtxt","position: absolute");
+	document.styleSheets.dynCom.addRule(".msocomtxt","top: -1000");
+	document.styleSheets.dynCom.addRule(".msocomtxt","left: -1000");
+	document.styleSheets.dynCom.addRule(".msocomtxt","width: 33%");
+	document.styleSheets.dynCom.addRule(".msocomtxt","background: infobackground");
+	document.styleSheets.dynCom.addRule(".msocomtxt","color: infotext");
+	document.styleSheets.dynCom.addRule(".msocomtxt","border-top: 1pt solid threedlightshadow");
+	document.styleSheets.dynCom.addRule(".msocomtxt","border-right: 2pt solid threedshadow");
+	document.styleSheets.dynCom.addRule(".msocomtxt","border-bottom: 2pt solid threedshadow");
+	document.styleSheets.dynCom.addRule(".msocomtxt","border-left: 1pt solid threedlightshadow");
+	document.styleSheets.dynCom.addRule(".msocomtxt","padding: 3pt 3pt 3pt 3pt");
+	document.styleSheets.dynCom.addRule(".msocomtxt","z-index: 100");
+}
+// --></script>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Arial Black";
+	panose-1:2 11 10 4 2 1 2 2 2 4;}
+@font-face
+	{font-family:"Arial Bold";
+	panose-1:2 11 7 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Logo-IBM;
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	border:none;
+	padding:0in;
+	font-size:16.0pt;
+	font-family:"Arial Black",sans-serif;
+	color:blue;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	page-break-after:avoid;
+	background:#E6E6E6;
+	font-size:12.0pt;
+	font-family:"Arial Black",sans-serif;
+	color:blue;
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:18.7pt;
+	line-height:14.0pt;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Arial Bold",sans-serif;
+	color:blue;
+	font-weight:bold;}
+h4
+	{margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.5in;
+	line-height:14.0pt;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:blue;
+	font-weight:bold;}
+h5
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.75in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:blue;
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	line-height:14.0pt;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	font-weight:bold;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.2in;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:76.3pt;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.5in;
+	font-size:9.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.5in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoCaption, li.MsoCaption, div.MsoCaption
+	{margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	font-size:9.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	font-style:italic;}
+span.MsoFootnoteReference
+	{vertical-align:super;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#954F72;
+	text-decoration:underline;}
+p.MsoDocumentMap, li.MsoDocumentMap, div.MsoDocumentMap
+	{margin:0in;
+	margin-bottom:.0001pt;
+	background:navy;
+	font-size:10.0pt;
+	font-family:"Tahoma",sans-serif;
+	color:windowtext;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:black;}
+code
+	{font-family:"Courier New";}
+pre
+	{mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:windowtext;}
+p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;
+	font-weight:bold;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma",sans-serif;
+	color:windowtext;}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Arial Black",sans-serif;
+	color:blue;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Arial Black",sans-serif;
+	color:blue;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Arial Bold",sans-serif;
+	color:blue;
+	font-weight:bold;}
+p.Tabletext, li.Tabletext, div.Tabletext
+	{mso-style-name:"Table text";
+	margin-top:3.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.StyleStyleTitleCoverLightBlueBefore10624ptLeft, li.StyleStyleTitleCoverLightBlueBefore10624ptLeft, div.StyleStyleTitleCoverLightBlueBefore10624ptLeft
+	{mso-style-name:"Style Style Title Cover + Light Blue Before\:  1\.06\0022 + 24 pt Left\: \.\.\.";
+	margin-top:76.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:9.35pt;
+	margin-bottom:.0001pt;
+	text-align:center;
+	page-break-after:avoid;
+	font-size:28.0pt;
+	font-family:"Arial",sans-serif;
+	color:blue;
+	letter-spacing:-2.4pt;
+	font-weight:bold;}
+p.StyleTitleCoverLightBlueBefore106, li.StyleTitleCoverLightBlueBefore106, div.StyleTitleCoverLightBlueBefore106
+	{mso-style-name:"Style Title Cover + Light Blue Before\:  1\.06\0022";
+	margin-top:1.25in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:76.3pt;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:36.0pt;
+	font-family:"Arial",sans-serif;
+	color:blue;
+	letter-spacing:-2.4pt;
+	font-weight:bold;}
+p.TitleCover, li.TitleCover, div.TitleCover
+	{mso-style-name:"Title Cover";
+	margin-top:1.25in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.75in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:36.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	letter-spacing:-2.4pt;
+	font-weight:bold;}
+p.SubtitleCover, li.SubtitleCover, div.SubtitleCover
+	{mso-style-name:"Subtitle Cover";
+	margin-top:76.0pt;
+	margin-right:84.0pt;
+	margin-bottom:0in;
+	margin-left:.75in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:20.0pt;
+	font-family:"Times New Roman",serif;
+	color:windowtext;
+	letter-spacing:-1.0pt;
+	font-style:italic;}
+p.StyleSubtitleCover12ptLeft181Right117, li.StyleSubtitleCover12ptLeft181Right117, div.StyleSubtitleCover12ptLeft181Right117
+	{mso-style-name:"Style Subtitle Cover + 12 pt Left\:  1\.81\0022 Right\:  1\.17\0022";
+	margin-top:12.0pt;
+	margin-right:.4in;
+	margin-bottom:6.0pt;
+	margin-left:1.0in;
+	line-height:14.0pt;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	letter-spacing:-1.0pt;
+	font-style:italic;}
+p.Smalltext, li.Smalltext, div.Smalltext
+	{mso-style-name:"Small text";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:9.35pt;
+	background:#E6E6E6;
+	font-size:9.0pt;
+	font-family:"Verdana",sans-serif;
+	color:blue;}
+p.bulletlist, li.bulletlist, div.bulletlist
+	{mso-style-name:"bullet list";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:37.4pt;
+	margin-bottom:.0001pt;
+	text-indent:-18.7pt;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.Columntext, li.Columntext, div.Columntext
+	{mso-style-name:"Column text";
+	mso-style-link:"Column text Char1";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+span.ColumntextChar1
+	{mso-style-name:"Column text Char1";
+	mso-style-link:"Column text";
+	font-family:"Arial",sans-serif;}
+p.summarytext, li.summarytext, div.summarytext
+	{mso-style-name:"summary text";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.7in;
+	text-align:justify;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.TOChead, li.TOChead, div.TOChead
+	{mso-style-name:"TOC head";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:18.7pt;
+	line-height:14.0pt;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Arial Bold",sans-serif;
+	color:blue;
+	font-weight:bold;}
+span.StyleStrongLatinArialBoldComplexArial12pt
+	{mso-style-name:"Style Strong + \(Latin\) Arial Bold \(Complex\) Arial 12 pt";
+	font-family:"Arial Bold",sans-serif;
+	font-weight:bold;}
+p.StyleChapterSubtitleLeft128, li.StyleChapterSubtitleLeft128, div.StyleChapterSubtitleLeft128
+	{mso-style-name:"Style Chapter Subtitle + Left\:  1\.28\0022";
+	margin-top:0in;
+	margin-right:1.9pt;
+	margin-bottom:20.0pt;
+	margin-left:9.35pt;
+	text-align:center;
+	line-height:20.0pt;
+	page-break-after:avoid;
+	font-size:17.0pt;
+	font-family:"Times New Roman",serif;
+	color:windowtext;
+	letter-spacing:-.7pt;
+	font-style:italic;}
+p.numlist, li.numlist, div.numlist
+	{mso-style-name:numlist;
+	mso-style-link:"numlist Char";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.example, li.example, div.example
+	{mso-style-name:example;
+	mso-style-link:"example Char";
+	margin-top:6.0pt;
+	margin-right:.4in;
+	margin-bottom:6.0pt;
+	margin-left:.5in;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:11.0pt;
+	font-family:"Courier New";
+	color:black;}
+span.exampleChar
+	{mso-style-name:"example Char";
+	mso-style-link:example;
+	font-family:"Courier New";
+	color:black;}
+p.Picture, li.Picture, div.Picture
+	{mso-style-name:Picture;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:56.7pt;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Verdana",sans-serif;
+	color:windowtext;}
+p.DefaultText, li.DefaultText, div.DefaultText
+	{mso-style-name:"Default Text";
+	mso-style-link:"Default Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:black;}
+span.DefaultTextChar
+	{mso-style-name:"Default Text Char";
+	mso-style-link:"Default Text";
+	font-family:"Arial",sans-serif;
+	color:black;}
+p.inline, li.inline, div.inline
+	{mso-style-name:inline;
+	margin-top:6.0pt;
+	margin-right:.4in;
+	margin-bottom:6.0pt;
+	margin-left:37.4pt;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:9.0pt;
+	font-family:"Courier New";
+	color:black;}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-link:"Code Char";
+	margin-top:12.0pt;
+	margin-right:.2in;
+	margin-bottom:0in;
+	margin-left:.2in;
+	margin-bottom:.0001pt;
+	text-autospace:none;
+	border:none;
+	padding:0in;
+	font-size:9.0pt;
+	font-family:"Courier New";
+	color:#1F4E79;}
+p.CodeCxSpFirst, li.CodeCxSpFirst, div.CodeCxSpFirst
+	{mso-style-name:CodeCxSpFirst;
+	mso-style-link:"Code Char";
+	margin-top:12.0pt;
+	margin-right:.2in;
+	margin-bottom:0in;
+	margin-left:.2in;
+	margin-bottom:.0001pt;
+	text-autospace:none;
+	border:none;
+	padding:0in;
+	font-size:9.0pt;
+	font-family:"Courier New";
+	color:#1F4E79;}
+p.CodeCxSpMiddle, li.CodeCxSpMiddle, div.CodeCxSpMiddle
+	{mso-style-name:CodeCxSpMiddle;
+	mso-style-link:"Code Char";
+	margin-top:0in;
+	margin-right:.2in;
+	margin-bottom:0in;
+	margin-left:.2in;
+	margin-bottom:.0001pt;
+	text-autospace:none;
+	border:none;
+	padding:0in;
+	font-size:9.0pt;
+	font-family:"Courier New";
+	color:#1F4E79;}
+p.CodeCxSpLast, li.CodeCxSpLast, div.CodeCxSpLast
+	{mso-style-name:CodeCxSpLast;
+	mso-style-link:"Code Char";
+	margin-top:0in;
+	margin-right:.2in;
+	margin-bottom:0in;
+	margin-left:.2in;
+	margin-bottom:.0001pt;
+	text-autospace:none;
+	border:none;
+	padding:0in;
+	font-size:9.0pt;
+	font-family:"Courier New";
+	color:#1F4E79;}
+span.CodeChar
+	{mso-style-name:"Code Char";
+	mso-style-link:Code;
+	font-family:"Courier New";
+	color:#1F4E79;}
+p.Paragraphtext, li.Paragraphtext, div.Paragraphtext
+	{mso-style-name:"Paragraph text";
+	mso-style-link:"Paragraph text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:black;}
+span.ParagraphtextChar
+	{mso-style-name:"Paragraph text Char";
+	mso-style-link:"Paragraph text";
+	font-family:"Arial",sans-serif;
+	color:black;}
+p.comment, li.comment, div.comment
+	{mso-style-name:comment;
+	mso-style-link:"comment Char";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:#333399;}
+span.commentChar
+	{mso-style-name:"comment Char";
+	mso-style-link:comment;
+	font-family:"Arial",sans-serif;
+	color:#333399;}
+p.StyleStyleSubtitleCover12ptLeft181Right117Ari, li.StyleStyleSubtitleCover12ptLeft181Right117Ari, div.StyleStyleSubtitleCover12ptLeft181Right117Ari
+	{mso-style-name:"Style Style Subtitle Cover + 12 pt Left\:  1\.81\0022 Right\:  1\.17\0022 + Ari\.\.\.";
+	margin-top:12.0pt;
+	margin-right:.4in;
+	margin-bottom:6.0pt;
+	margin-left:1.0in;
+	line-height:14.0pt;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	letter-spacing:-1.0pt;
+	font-style:italic;}
+p.Abstracttext, li.Abstracttext, div.Abstracttext
+	{mso-style-name:"Abstract text";
+	margin-top:6.0pt;
+	margin-right:.3in;
+	margin-bottom:6.0pt;
+	margin-left:.3in;
+	punctuation-wrap:simple;
+	text-autospace:none;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:black;
+	font-style:italic;}
+p.ColumnText5, li.ColumnText5, div.ColumnText5
+	{mso-style-name:"Column Text 5";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.75in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.Heading3text, li.Heading3text, div.Heading3text
+	{mso-style-name:Heading3text;
+	mso-style-link:"Heading3text Char";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.2in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+span.Heading3textChar
+	{mso-style-name:"Heading3text Char";
+	mso-style-link:Heading3text;
+	font-family:"Arial",sans-serif;}
+p.ColumnText3, li.ColumnText3, div.ColumnText3
+	{mso-style-name:"Column Text 3";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.25in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.CodeSamplecaption, li.CodeSamplecaption, div.CodeSamplecaption
+	{mso-style-name:"Code Sample caption";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.1in;
+	font-size:9.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	font-style:italic;}
+p.bulletlistHeading3, li.bulletlistHeading3, div.bulletlistHeading3
+	{mso-style-name:"bullet list Heading 3";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:54.7pt;
+	margin-bottom:.0001pt;
+	text-indent:-18.7pt;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.ColumnText4, li.ColumnText4, div.ColumnText4
+	{mso-style-name:"Column Text 4";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.5in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.bulletlistHeading4, li.bulletlistHeading4, div.bulletlistHeading4
+	{mso-style-name:"bullet list Heading 4";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:72.7pt;
+	margin-bottom:.0001pt;
+	text-indent:-18.7pt;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.bulletlistHeading5, li.bulletlistHeading5, div.bulletlistHeading5
+	{mso-style-name:"bullet list Heading 5";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:72.7pt;
+	margin-bottom:.0001pt;
+	text-indent:-18.7pt;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.StyleColumntextItalic, li.StyleColumntextItalic, div.StyleColumntextItalic
+	{mso-style-name:"Style Column text + Italic";
+	mso-style-link:"Style Column text + Italic Char";
+	margin-top:6.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;
+	font-style:italic;}
+span.StyleColumntextItalicChar
+	{mso-style-name:"Style Column text + Italic Char";
+	mso-style-link:"Style Column text + Italic";
+	font-family:"Arial",sans-serif;
+	font-style:italic;}
+p.bulletlistindented, li.bulletlistindented, div.bulletlistindented
+	{mso-style-name:"bullet list indented";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:54.7pt;
+	margin-bottom:.0001pt;
+	text-indent:-18.7pt;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+p.numlist2, li.numlist2, div.numlist2
+	{mso-style-name:"numlist 2";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:52.6pt;
+	margin-bottom:.0001pt;
+	text-indent:-16.6pt;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+span.numlistChar
+	{mso-style-name:"numlist Char";
+	mso-style-link:numlist;
+	font-family:"Arial",sans-serif;}
+p.numlistindenteda, li.numlistindenteda, div.numlistindenteda
+	{mso-style-name:"numlist indented a";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	line-height:14.0pt;
+	font-size:10.0pt;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+span.ColumntextChar
+	{mso-style-name:"Column text Char";
+	font-family:"Arial",sans-serif;}
+span.pre
+	{mso-style-name:pre;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-link:"HTML Preformatted";
+	font-family:"Courier New";}
+span.s2
+	{mso-style-name:s2;}
+span.n
+	{mso-style-name:n;}
+span.s1
+	{mso-style-name:s1;}
+span.k
+	{mso-style-name:k;}
+span.ss
+	{mso-style-name:ss;}
+span.left
+	{mso-style-name:left;}
+span.system
+	{mso-style-name:system;}
+span.xq15
+	{mso-style-name:xq15;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in .5in 1.2in 1.5in;}
+div.WordSection1
+	{page:WordSection1;}
+@page WordSection2
+	{size:8.5in 11.0in;
+	margin:1.0in .5in 1.2in 1.5in;}
+div.WordSection2
+	{page:WordSection2;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72">
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-left:28.05pt'>&nbsp;</p>
+
+<p class=StyleStyleTitleCoverLightBlueBefore10624ptLeft>Release Notes on Chef
+Cookbook for Oracle E-Business Suite</p>
+
+<p class=StyleChapterSubtitleLeft128>Installing Oracle E-Business Suite version
+12.2.5 using Chef Client 12.7.2 on AIX 7.1</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal align=right style='text-align:right'><i><span
+style='font-size:17.0pt;font-family:"Times New Roman",serif;letter-spacing:
+-.7pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal align=right style='text-align:right'><i><span
+style='font-size:17.0pt;font-family:"Times New Roman",serif;letter-spacing:
+-.7pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal align=center style='text-align:center'><i><span
+style='font-size:17.0pt;font-family:"Times New Roman",serif;letter-spacing:
+-.7pt'>Jubal Kohlmeier</span></i></p>
+
+<p class=MsoNormal align=center style='text-align:center'><i><span style='font-size:17.0pt;font-family:"Times New Roman",serif'>IBM</span></i><span
+style='font-size:17.0pt'> </span><i><span style='font-size:17.0pt;font-family:
+"Times New Roman",serif'>Oracle Applications Enablement</span></i></p>
+
+<p class=MsoNormal align=center style='text-align:center'><i><span
+style='font-size:17.0pt;font-family:"Times New Roman",serif;letter-spacing:
+-.7pt'>Feb 2016</span></i></p>
+
+<p class=MsoNormal align=center style='text-align:center'><i><span
+style='font-size:17.0pt;font-family:"Times New Roman",serif;letter-spacing:
+-.7pt'>&nbsp;</span></i></p>
+
+<i><span style='font-size:17.0pt;font-family:"Times New Roman",serif;
+letter-spacing:-.7pt'><br clear=all style='page-break-before:always'>
+</span></i>
+
+<p class=MsoNormal><i><span style='font-size:17.0pt;font-family:"Times New Roman",serif;
+letter-spacing:-.7pt'>&nbsp;</span></i></p>
+
+<p class=MsoNormal style='margin-left:56.9pt;text-indent:-56.9pt;page-break-before:
+always;background:#E0E0E0'><b><span style='color:blue'>Table of c</span><span
+style='color:blue'>ontents</span></b></p>
+
+<p class=MsoToc1><a name="_Toc116705122"></a><a
+href="#_Toc443907964">Abstract<span style='color:windowtext;display:none;
+text-decoration:none'> </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907965">Not supported<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907966">Requirements<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc443907967">Disk space requirements<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>1</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc443907968">Operating system requirements<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>2</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907969">Oracle E-Business Suite<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>2</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907970">Staging area<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907971">AIX<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907972">Chef on AIX<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907973">Chef Supermarket and the Chef
+Cookbooks<span style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc443907974">Cookbook dependencies<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc443907975">Chef knife bootstrap syntax for
+Oracle EBS Cookbook<span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907976">Cookbook structure<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>6</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907977">Resources<span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>7</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907978">Appendix A: Patches used for Oracle
+EBS 12.2.2.5<span style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>8</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907979">Appendix B: Edelivery files for
+Oracle EBS 12.2.2.5<span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>9</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc443907980">Trademarks and special notices<span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>10</span></a></p>
+
+<p class=Columntext><b><span style='font-size:11.0pt'>&nbsp;</span></b></p>
+
+</div>
+
+<span style='font-size:10.0pt;font-family:"Arial",sans-serif'><br clear=all
+style='page-break-before:always'>
+</span>
+
+<div class=WordSection2>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1 style='page-break-before:always'><a name="_Toc443907964">Abstract</a></h1>
+
+</div>
+
+<p class=Columntext><span class=ColumntextChar1>These release notes define the
+operation and usage of installing Oracle E-Business Suite (EBS) 12.2.5 using
+Chef Client version 12.6 on the AIX®</span> 7.1 platform.</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907965">Not supported</a></h1>
+
+</div>
+
+<p class=Columntext>The Oracle EBS product supports multiple environments and
+configuration. This cookbook does not support the following options within Oracle
+EBS:</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Does not support an
+Oracle RAC installation of the database. This version only supports the single
+database option.</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Does not support
+multi-tier installation. This cookbook installs the database, application
+server and WebLogic server on a single operating system.</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Does not install the
+production version of the database. This cookbook installs the VIS
+demonstration database. While it may be easy to change the options to the
+production database, it currently has not been tested or provided an option
+within the code.</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Does not support
+other operating systems. There are no current plans to support a different
+operating system.</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Has not been tested
+on AIX 6.1.  </p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907966">Requirements</a></h1>
+
+</div>
+
+<h2><a name="_Toc116707692"></a><a name="_Toc116707449"></a><a
+name="_Toc116705717"></a><a name="_Toc116705438"></a><a name="_Toc116705124"></a><a
+name="_Toc443907967">Disk space requirements</a></h2>
+
+<p class=Columntext>The database file system, by default, /d01 is 400GB in
+size. It houses the binaries provided by Oracle, temporary data space and the Oracle
+Database files. The Oracle Database files consumes roughly 200GB of space when
+installed. </p>
+
+<p class=Columntext>The application file system, /applmgr, is 100GB in size,
+defined within this cookbook. Actual usage space is less than 100GB when
+installed.</p>
+
+<p class=Columntext>The /opt file system is expanded to 10GB within the
+cookbook. The /tmp file system is expanded to 10 GB as well.  /opt is where the
+chef installation occurs. An Oracle EBS install requires /tmp to be larger than
+the default on the AIX 7.1 operating system.</p>
+
+<p class=Columntext>The oracle_ebs cookbook will create the volume group,
+ebsvg01, and the file systems, /d01 and /applmgr, if given a set of disk drives
+that are available. See the default.rb attributes file for details. Otherwise,
+the cookbook expect to see /d01 and /applmgr created beforehand.</p>
+
+<span style='font-size:12.0pt;font-family:"Verdana",sans-serif'><br clear=all
+style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp;</span></p>
+
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 0in 31.0pt 4.0pt;
+margin-left:.2in;margin-right:.2in'>
+
+<p class=CodeCxSpFirst style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>#-------------------------------------------------------</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'># Volume Group Attributes – used to
+create the file systems</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>#-------------------------------------------------------</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>#</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:ppsiz]        =
+128</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:pp_per_gig]   =
+1024/node[:ebs][:vg][:ppsiz]</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:vgname]       =
+'ebsvg01'</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:db_fs_siz]            
+= '398' # in GIGS</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:app_fs_siz]           
+= '198' # in GIGS</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>&nbsp;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>#-------------------------------------------------------</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'># File System Attributes</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>#-------------------------------------------------------</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>#</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:db_fs_nam]            
+= '/d01'</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:app_fs_nam]           
+= '/applmgr'</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:tmp_fs_siz]    =
+'10' # in GIGS</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:opt_fs_siz]    =
+'10' # in GIGS</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:vg][:fsopts] =
+&quot;-Ayes -prw -a agblksize=4096 -a logsize=1024 -a isnapshot=no&quot;</p>
+
+<p class=CodeCxSpLast style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                               </p>
+
+</div>
+
+<p class=Columntext>&nbsp;</p>
+
+<h2><a name="_Toc443907968">Operating system requirements</a></h2>
+
+<p class=Columntext>The system used for testing the Oracle EBS installation was
+an IBM Power Systems™ server with two POWER8™ processors and 32GB of memory.
+The cookbook will modify the kernel parameter maxuproc and kernel parameter
+iocp, which are required by the Oracle EBS installation.</p>
+
+<p class=Columntext>The paper,<a
+href="http://w3-03.ibm.com/support/techdocs/atsmastr.nsf/WebIndex/WP102596">
+Porting Chef Cookbooks to AIX</a>, provides additional useful information
+regarding operating system requirements, and will not be duplicated here.</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907969">Oracle E-Business Suite</a></h1>
+
+</div>
+
+<p class=Columntext>This cookbook installs version 12.2.2.5 of the standard Oracle
+E-Business Suite product. Most likely, the version of Oracle EBS that you wish
+to install would be either a slightly newer version or a version on another
+platform. The steps, and documents I used to create the Oracle EBS Cookbook
+should be similar to your example. As such, it should be fairly easy to port the
+oracle_ebs Cookbook to other Oracle EBS versions. </p>
+
+<p class=Columntext>The following Oracle documents were used during the process
+of creating the Oracle EBS installation cookbook. These documents are available
+from the My Oracle Support website (a valid userid and password are required to
+access that site).</p>
+
+<p class=Columntext>Doc ID: 1983050.1 was the main document for driving the
+installation instructions. The other two documents, in bold, were also largely
+important to the install. The remaining documents were occasionally used as required.
+I also kept the update date, in the case that these documents are updated, then
+the installation of Oracle EBS for newer patches and release will likely
+require re-testing and porting.</p>
+
+<p class=Columntext>&nbsp;</p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=630
+ style='width:5.25in;border-collapse:collapse'>
+ <tr style='height:.2in'>
+  <td width=90 valign=bottom style='width:54.2pt;border:solid windowtext 1.0pt;
+  background:#DAEEF3;padding:0in 5.4pt 0in 5.4pt;height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>Last
+  Updated:</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;border:solid windowtext 1.0pt;
+  border-left:none;background:#DAEEF3;padding:0in 5.4pt 0in 5.4pt;height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>Title</span></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>12/14/2015</span></b></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><b><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Oracle E-Business Suite Release 12.2.5 Readme (Doc ID 1983050.1)</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>11/12/2015</span></b></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><b><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Oracle E-Business Suite Release 12.2: Consolidated List of
+  Patches and Technology Bug Fixes (Doc ID 1594274.1)</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>1/14/2016</span></b></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><b><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Applying the Latest AD and TXK Release Update Packs to Oracle
+  E-Business Suite Release 12.2 (Doc ID 1617461.1)</span></b></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'></td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'></td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>12/15/2014</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>How to download OUI 10.2.0.4 and OUI 10.2.0.5 (Doc ID 557291.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>10/19/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Upgrading OracleAS 10g Forms and Reports in Oracle E-Business
+  Suite Release 12 (Doc ID 437878.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>8/11/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Complete Checklist to Upgrade the Database to 11gR2 Using DBUA
+  (Doc ID 870814.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>3/31/2014</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>New Oracle E-Business Suite R12 Operating System and Tools
+  Requirements on IBM AIX on Power Systems (Doc ID 1294357.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>11/10/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Oracle E-Business Suite Release Notes, Release 12.2 (Doc ID
+  1320300.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>12/22/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Oracle E-Business Suite Installation and Upgrade Notes Release
+  12 (12.2) for IBM AIX on Power Systems (64-bit) (Doc ID 1330703.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>10/6/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Oracle E-Business Suite 12.2 Patching Technology Components
+  Guide (Doc ID 1355068.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>1/14/2016</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Useful 12.2 Documents (Doc ID 1585889.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>12/16/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Export/Import Process for Oracle E-Business Suite Release 12.2
+  Database Instances Using Oracle Database 11.2 (Doc ID 1613716.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>10/18/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Interoperability Notes E-Business Suite Release 12.2 with
+  Database 11g Release 2 (Doc ID 1623879.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.3in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>1/14/2016</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.3in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>Oracle E-Business Suite Release 12.2 Technology Stack
+  Documentation Roadmap (Doc ID 1934915.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:.2in'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>10/21/2015</span></p>
+  </td>
+  <td width=540 valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:.2in'>
+  <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+  color:black'>How To Run The 12.2 EBS Technology Code Level Checker (ETCC) ?
+  (Doc ID 2008451.1)</span></p>
+  </td>
+ </tr>
+ <tr style='height:20.4pt'>
+  <td width=90 nowrap valign=bottom style='width:54.2pt;padding:0in 5.4pt 0in 5.4pt;
+  height:20.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:8.0pt;font-family:"Calibri",sans-serif;color:black'>10/16/2015</span></p>
+  </td>
+  <td width=540 nowrap valign=bottom style='width:323.8pt;padding:0in 5.4pt 0in 5.4pt;
+  height:20.4pt'>
+  <p class=MsoNormal><span style='position:absolute;z-index:251663360;
+  margin-left:26px;margin-top:742px;width:13px;height:13px'><img width=13
+  height=13 src="EBS%2012.2.5_COOKBOOK_files/image001.png"></span></p>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0>
+   <tr style='height:20.4pt'>
+    <td width=538 style='width:323.0pt;padding:0in 0in 0in 0in;height:20.4pt'>
+    <p class=MsoNormal><span style='font-size:8.0pt;font-family:"Calibri",sans-serif;
+    color:black'>Oracle E-Business Suite Applications DBA and Technology Stack
+    Release Notes for Release 12.2.5 (Doc ID 2050998.1)</span></p>
+    </td>
+   </tr>
+  </table>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoCaption>Table 1. Documents used while creating the Oracle EBS
+Cookbook.</p>
+
+<p class=Columntext><b>It is required that the user of the oracle_ebs cookbook
+meets all Oracle requirements for installing Oracle EBS, including having valid
+licenses and permissions for the Oracle EBS product suite.<a
+name="_Toc116707693"></a><a name="_Toc116707450"></a></b></p>
+
+<span style='font-size:12.0pt;font-family:"Verdana",sans-serif'><br clear=all
+style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:"Arial",sans-serif'>&nbsp;</span></p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907970">Staging area</a></h1>
+
+</div>
+
+<p class=Columntext>The installation of the Oracle EBS Cookbook is highly
+dependent on the staging area. In this cookbook, the staging area is nfs
+mounted. There are two attributes within the default.rb file that determine the
+mount point and mounting within the Oracle EBS Cookbook.</p>
+
+<p class=Columntext>The nfs mount must be set up for the Oracle EBS Cookbook to
+remotely connect from the target installation machine.</p>
+
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 0in 31.0pt 4.0pt;
+margin-left:.2in;margin-right:.2in'>
+
+<p class=CodeCxSpFirst style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:stage][:nfsmount]      
+= /ebstage</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:stage][:nfshost]       
+= &lt;CHANGE_ME&gt;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:stage][:dir]           
+= /ebstage/stage</p>
+
+<p class=CodeCxSpLast style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>default[:ebs][:stage][:zips]          
+= /ebstage/zips</p>
+
+</div>
+
+<p class=MsoCaption>Figure 1. Attributes within the attributes/default.rb file</p>
+
+<p class=Columntext>The directory structure is well documented in the “<a
+href="http://docs.oracle.com/cd/E26401_01/doc.122/e22950/T422699i4773.htm#BABHHJHG">Oracle
+E-Business Suite Installation Guide: Using Rapid Install</a><span
+class=MsoHyperlink>”</span> document. You start with unzipping the startCD zip
+files. Following the process for building the staging area, we end up with.
+/ebstage/stage:</p>
+
+<p class=Columntext>DBMS/              EBSInstallMedia/   TechInstallMedia/ 
+TechPatches/       startCD/</p>
+
+<p class=Columntext>The other significant directory is the zips directory. It
+contains all the patches files. Appendix A contains the list of patch files
+found within the /ebstage/zips directory.</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907971">AIX</a></h1>
+
+</div>
+
+<p class=Columntext>AIX is an open, standards-based operating system that
+conforms to The Open Group's Single UNIX® Specification Version 3. It provides
+fully integrated support for 32- and 64-bit applications. The AIX operating
+system provides binary compatible support for the entire IBM UNIX product line
+including <a href="http://www-03.ibm.com/systems/power/index.html">IBM Power™
+Systems</a>, System p™, System i™, pSeries®, and iSeries™ <a>servers</a><span
+class=MsoCommentReference><span style='font-size:8.0pt;font-family:"Verdana",sans-serif'><a
+class=msocomanchor id="_anchor_1"
+onmouseover="msoCommentShow('_anchor_1','_com_1')"
+onmouseout="msoCommentHide('_com_1')" href="#_msocom_1" language=JavaScript
+name="_msoanchor_1">[PMM1]</a>&nbsp;</span></span>. AIX also supports qualified
+systems offered by hardware vendors participating in the AIX Multiple Vendor
+Program. So, as you move to newer versions of the AIX operating system, its
+excellent history of <a
+href="http://www-03.ibm.com/systems/power/software/aix/compatibility/index.html">binary
+compatibility</a>&nbsp;provides confidence that your critical applications will
+continue to run.</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907972">Chef on AIX</a></h1>
+
+</div>
+
+<p class=Columntext>With the advent of Chef Client 12.0, support for Chef Nodes
+became available on IBM AIX 6.1 and 7.1. It is freely available from Chef’s <a
+href="https://www.getchef.com/download-chef-client/">downloads page</a> and can
+be used with any version of the Chef Server up to and including Chef Server 12.</p>
+
+<p class=Columntext>The versions of AIX supported are:</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>AIX 6.1 TL6 or later</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>AIX 7.1 TL0 SP3 or
+later</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907973">Chef Supermarket and the Chef Cookbooks</a></h1>
+
+</div>
+
+<p class=Columntext>The <a href="https://github.com/chef/supermarket">Chef
+Supermarket</a> is a repository where development of Chef Applications takes
+place. Developers contribute their open source Chef code to the Supermarket.
+The Supermarket, in turn, provides access to the open source community to Chef Applications.
+The Oracle EBS cookbook for AIX can be found in the Chef Supermarket.  </p>
+
+<p class=Columntext>Oracle software and documentation can be downloaded from the
+Oracle Software Delivery Cloud web site at: <a
+href="https://edelivery.oracle.com/">https://edelivery.oracle.com/</a>. You
+need to have a valid license agreement with Oracle Corporation to download any
+software from the Oracle E-Delivery location.</p>
+
+<h2><a name="_Toc443907974">Cookbook dependencies</a></h2>
+
+<p class=Columntext>A Chef engineer produced a very useful cookbook for the AIX
+platform, with chef name of ‘aix’. The Oracle EBS cookbook has a dependency on
+the AIX cookbook. The AIX Cookbook can be found at: <a
+href="https://supermarket.chef.io/cookbooks/aix">https://supermarket.chef.io/cookbooks/aix</a>.
+The AIX cookbook contains many valuable AIX-specific utilities that you will
+find useful as you write your Chef Cookbooks and recipes onto the AIX platform.</p>
+
+<h2><a name="_Toc443907975">Chef knife bootstrap syntax for Oracle EBS Cookbook</a></h2>
+
+<p class=Columntext>The Chef <b>knife bootstrap</b> command has many options.
+The syntax of the Chef <b>knife bootstrap</b> command below provides the
+options used when running the Oracle EBS Cookbook in our testing. Many more
+options are available and can be found at the <a
+href="https://docs.chef.io/knife_bootstrap.html">knife bootstrap Chef
+documentation</a><span class=MsoHyperlink>.</span></p>
+
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 0in 31.0pt 4.0pt;
+margin-left:.2in;margin-right:.2in'>
+
+<p class=Code style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;
+margin-left:0in;margin-bottom:.0001pt'>knife bootstrap &lt;TARGETNODE&gt; -x
+root -P &lt;root_password&gt; -N &lt;TARGETNODE&gt; -r role[role_ebs]</p>
+
+</div>
+
+<p class=Columntext>The TargetNode represents the machine in which you want to
+provision for Chef. In our case, the TargetNode would be an AIX 6.1 or 7.1
+machine or LPAR. The –x option defines the SSH user name on the TargetNode.
+This is typically the root user. The –P option specifies the SSH password for
+the SSH user name on the TargetNode. The –r option describes the Chef run-list,
+which in our case is the role ‘mach51’ role cookbook.</p>
+
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 0in 31.0pt 4.0pt;
+margin-left:.2in;margin-right:.2in'>
+
+<p class=CodeCxSpFirst style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>Name &quot;role_ebs&quot;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>Description &quot;Role applied to
+Oracle E-Business Suite on AIX 7.1.&quot;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>&nbsp;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>run_list 'recipe[ebs]'</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>&nbsp;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>override_attributes :ebs_appuser  
+=&gt; 'applmgr',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :ebs_dbuser                    
+=&gt; 'oraprod',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :ebs_groupid                   
+=&gt; '1000',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :ebs_group                     
+=&gt; 'oinstall',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'> :ebs =&gt; {</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :app   =&gt;  { :usr =&gt; { :uid    
+=&gt; 2000 } },</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :db    =&gt;  { :usr =&gt; {
+:uid     =&gt; 3000 } },</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :stage =&gt;  {
+:nfshost           =&gt; '&lt;nfshostname&gt;',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :nfsmount         
+=&gt; '/ebstage'},</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>   :vg    =&gt;  {
+:app_fs_nam        =&gt; '/applmgr',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :app_fs_siz        =&gt;
+198, # GB</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :db_fs_nam        
+=&gt; '/d01',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :db_fs_siz        
+=&gt; 398, # GB</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :sashosts         
+=&gt; [ 'TARGETNODE' ],</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :swapspace        
+=&gt; 16384,</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :vgname           
+=&gt; 'ebsvg01',</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>                :drives           
+=&gt; { 'TARGETNODE' =&gt; [ 'hdiskX', 'hdiskY',                    'hdiskZ' ]
+},</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>             },</p>
+
+<p class=CodeCxSpLast style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>  }</p>
+
+</div>
+
+<p class=Columntext>As mentioned earlier, the Oracle EBS cookbook will create
+the file systems /applmgr and /d01. It requires the unused hdisks to provide
+the space for a new volume group. The Oracle EBS cookbook assumes that we are
+provisioning a new OS, and that we have spare drives. If this is not the case,
+then if the volume group already exists, creation will be bypassed.</p>
+
+<p class=Columntext>The mach51 role file is an example of overriding the
+default attributes for installing in different environments. The key areas that
+may be different for your installation are:</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>User names and UID’s</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>The remote mount file
+system details.</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>The size of swap
+space (it is taken from rootvg volume group)</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>And file system and
+volume group names.</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907976">Cookbook structure</a></h1>
+
+</div>
+
+<p class=Columntext>The logical flow of the Oracle EBS Cookbook is as follows,
+and is based on the Doc ID: 1983050.1 Oracle EBS Release 12.2.5 Readme.html
+file: </p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Install
+the OS related environment. This includes kernel parameters, file system and
+users and groups. Also checks for required software.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
+stage directory is expected to be mounted and created, and the Oracle EBS
+installation begins with the rapidwiz utility, installing the base Oracle EBS 12.2.0
+software. The EBS 12.2.0 base installs version 11.2.0.3 of the Oracle Database.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
+11.2.0.4 Oracle Database is installed. 11.2.0.4 Oracle Database patches are
+installed.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Oracle
+Database utility ‘dbua’ is used to migrate the Oracle EBS 11.2.0.3 database to
+11.2.0.4 </p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
+additional patches as specified by Doc ID: ‘Oracle E-Business Suite Release
+12.2: Consolidated List of Patches and Technology Bug Fixes’ are installed.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Oracle
+EBS AD and TXK patches are installed.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The Oracle
+EBS Upgrade patch to upgrade the Oracle EBS software to 12.2.5 is applied.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>8.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Final
+patches, cleanup and clone is applied.</p>
+
+<p class=Columntext style='margin-left:.5in;text-indent:-.25in'>9.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Post
+installation patches are applied.</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1><a name="_Toc443907977"></a><a name="_Toc116707704"></a><a
+name="_Toc116707459"></a><a name="_Toc116705730"></a><a name="_Toc116705451"></a><a
+name="_Toc116705136">Resources</a></h1>
+
+</div>
+
+<p class=Columntext>These Web sites provide useful references to supplement the
+information contained in this document:</p>
+
+<p class=bulletlist><span lang=IT style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span lang=IT>IBM
+eServer pSeries [System p] Information Center<br>
+http://publib.boulder.ibm.com/infocenter/pseries/index.jsp</span></p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>IBM Publications
+Center<br>
+www.elink.ibmlink.ibm.com/public/applications/publications/cgibin/pbi.cgi?CTY=US</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Chef Webinars</p>
+
+<p class=bulletlist style='margin-left:18.7pt;text-indent:17.3pt'>https://www.chef.io/webinars</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Chef for AIX</p>
+
+<p class=bulletlist style='margin-left:18.7pt;text-indent:17.3pt'>https://www.chef.io/blog/2014/12/08/announcing-chef-client-for-ibm-aix/</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>AIX Platform Support</p>
+
+<p class=bulletlist style='margin-left:18.7pt;text-indent:17.3pt'>https://docs.chef.io/release/12-0/release_notes.html#ibm-aix-platform-support</p>
+
+<p class=bulletlist><span style='font-family:Wingdings;color:blue'>§<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span>Chef System
+Requirements</p>
+
+<p class=bulletlist style='margin-left:18.7pt;text-indent:17.3pt'>http://docs.chef.io/chef_system_requirements.html#chef-client</p>
+
+<p class=bulletlist style='margin-left:18.7pt;text-indent:17.3pt'>&nbsp;</p>
+
+<p class=Columntext>&nbsp;</p>
+
+<p class=Columntext>&nbsp;</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1 style='page-break-before:always'><a name="_Toc443907978">Appendix A: Patches
+used for Oracle EBS 12.2.2.5</a></h1>
+
+</div>
+
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 0in 31.0pt 4.0pt;
+margin-left:.2in;margin-right:.2in'>
+
+<p class=CodeCxSpFirst style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>&nbsp;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>Contents of the /ebstage/zips
+directory</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>&nbsp;</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p12949905_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p14754223_111170_Generic.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p16075609_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p17204589_12.2.0_R12_GENERIC.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p17526668_111170_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p17537119_R12_GENERIC.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p18485835_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p18604144_112040_Generic.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p18708921_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p18828868_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p18966843_112040_Generic.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_1of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_2of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_3of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_4of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_5of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_6of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_7of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676458_R12_AIX64-5L_8of8.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19676460_R12_GENERIC.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19835133_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p19949371_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p20488666_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p20493440_111170_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p20523280_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p20678391_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p20745242_R12.AD.C_R12_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p20784380_R12.TXK.C_R12_GENERIC.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p21034704_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p21103001_101232_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p21249127_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p21472186_112040_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p21483810_R12.FND.C_R12_GENERIC.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p22123818_R12.AD.C_R12_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p22127738_112040_Generic.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p22363475_R12.TXK.C_R12_GENERIC.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p6880880_101000_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p6880880_111000_AIX64-5L.zip</p>
+
+<p class=CodeCxSpMiddle style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p6880880_112000_AIX64-5L.zip</p>
+
+<p class=CodeCxSpLast style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+0in;margin-left:0in;margin-bottom:.0001pt'>p9905685_111170_Generic.zip</p>
+
+</div>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1 style='page-break-before:always'><a name="_Toc443907979">Appendix B:
+Edelivery files for Oracle EBS 12.2.2.5</a></h1>
+
+</div>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=793
+ style='width:476.0pt;margin-left:-.25pt;border-collapse:collapse'>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;border:solid windowtext 1.0pt;
+  background:#D9E1F2;padding:0in 5.4pt 0in 5.4pt;height:15.0pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-size:11.0pt;font-family:"Calibri",sans-serif;color:black'>Oracle
+  EBS (12.2.0)</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37135-01.zip Oracle EBS Release 12.2.0  Rapid Install AS10.1.2
+  1.4 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37136-01_1of4.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 1 1.4 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37136-01_2of4.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 1 625.1 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37136-01_3of4.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 1 1.3 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37136-01_4of4.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 1 596.1 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37137-01_1of3.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 2 1.2 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37137-01_2of3.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 2 1.2 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37137-01_3of3.zip Oracle EBS Release 12.2.0  Rapid Install
+  APPL_TOP - Disk 2 725.5 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37138-01_1of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Databases PROD - Disk 1 1.0 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37138-01_2of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Databases PROD - Disk 1 1.4 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37139-01_1of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Databases PROD - Disk 2 1.4 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37139-01_2of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Databases PROD - Disk 2 1.2 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37140-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  PROD - Disk 3 1.2 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37141-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  VISION - Disk 1 3.1 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37142-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  VISION - Disk 2 2.9 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37143-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  VISION - Disk 3 2.8 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37144-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  VISION - Disk 4 2.7 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37145-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  VISION - Disk 5 2.6 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37146-01.zip Oracle EBS Release 12.2.0  Rapid Install Databases
+  VISION - Disk 6 2.2 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37147-01.zip Oracle EBS Release 12.2.0  Rapid Install
+  Technology one-off Patches 935.3 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37148-01_1of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 1 1.6 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37148-01_2of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 1 1.1 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37149-01_1of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 2 1.9 GB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37149-01_2of2.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 2 977.7 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37150-01_1of3.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 3 849.5 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37150-01_2of3.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 3 519.4 MB</span></p>
+  </td>
+ </tr>
+ <tr style='height:15.0pt'>
+  <td width=793 nowrap valign=bottom style='width:476.0pt;padding:0in 5.4pt 0in 5.4pt;
+  height:15.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Calibri",sans-serif;
+  color:black'>V37150-01_3of3.zip Oracle EBS Release 12.2.0  Rapid Install
+  Oracle Database 11.2.0.3.0 - Disk 3 213.0 MB</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0in 0in 1.0pt 0in'>
+
+<h1 style='page-break-before:always'><a name="_Toc443907980">Trademarks and
+special notices</a></h1>
+
+</div>
+
+<p class=Columntext>© Copyright. IBM Corporation 2016. All rights reserved.</p>
+
+<p class=Columntext>References in this document to IBM products or services do
+not imply that IBM intends to make them available in every country.</p>
+
+<p class=Columntext>IBM, the IBM logo, AIX, iSeries, Power Systems, POWER8,
+pSeries, System i and System p are trademarks or registered trademarks of
+International Business Machines Corporation in the United States, other
+countries, or both:</p>
+
+<p class=Columntext>UNIX is a registered trademark of The Open Group in the United States and other countries.</p>
+
+<p class=Columntext>Other company, product, or service names may be trademarks
+or service marks of others. </p>
+
+<p class=Columntext>The information provided in this document is distributed
+“AS IS” without any warranty, either express or implied.</p>
+
+<p class=Columntext>The information in this document may include technical
+inaccuracies or typographical errors.</p>
+
+<p class=Columntext>Information concerning non-IBM products was obtained from a
+supplier of these products, published announcement material, or other publicly
+available sources and does not constitute an endorsement of such products by
+IBM. Sources for non-IBM list prices and performance numbers are taken from
+publicly available information, including vendor announcements and vendor
+worldwide homepages. IBM has not tested these products and cannot confirm the
+accuracy of performance, capability, or any other claims related to non-IBM
+products. Questions on the capability of non-IBM products should be addressed
+to the supplier of those products.</p>
+
+<p class=Columntext>All statements regarding IBM future direction and intent
+are subject to change or withdrawal without notice, and represent goals and
+objectives only. Contact your local IBM office or IBM authorized reseller for
+the full text of the specific Statement of Direction.</p>
+
+<p class=Columntext>Some information addresses anticipated future capabilities.
+Such information is not intended as a definitive statement of a commitment to
+specific levels of performance, function or delivery schedules with respect to
+any future products. Such commitments are only made in IBM product
+announcements. The information is presented here to communicate IBM's current
+investment and development activities as a good faith effort to help with our
+customers' future planning. </p>
+
+<p class=Columntext>Performance is based on measurements and projections using
+standard IBM benchmarks in a controlled environment. The actual throughput or
+performance that any user will experience will vary depending upon
+considerations such as the amount of multiprogramming in the user's job stream,
+the I/O configuration, the storage configuration, and the workload processed.
+Therefore, no assurance can be given that an individual user will achieve
+throughput or performance improvements equivalent to the ratios stated here.</p>
+
+<p class=Columntext>Photographs shown are of engineering prototypes. Changes
+may be incorporated in production models.</p>
+
+<p class=Columntext><span style='color:black'>Any references in this
+information to non-IBM Web sites are provided for convenience only and do not
+in any manner serve as an endorsement of those Web sites. The materials at
+those Web sites are not part of the materials for this IBM product and use of
+those Web sites is at your own risk.</span></p>
+
+</div>
+
+<div>
+
+<hr class=msocomoff align=left size=1 width="33%">
+
+<div>
+
+<div id="_com_1" class=msocomtxt language=JavaScript
+onmouseover="msoCommentShow('_anchor_1','_com_1')"
+onmouseout="msoCommentHide('_com_1')"><a name="_msocom_1"></a>
+
+<p class=MsoCommentText><span class=MsoCommentReference><span style='font-size:
+8.0pt'>&nbsp;<a href="#_msoanchor_1" class=msocomoff>[PMM1]</a></span></span>I
+deleted the reference to BladeCenter since we essentially sold that to Lenovo,
+and the link was broken.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

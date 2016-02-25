@@ -1,0 +1,120 @@
+#!/usr/bin/perl
+
+   ###################################################################
+   # There is No official support.
+   # Use at your own risk. Developed for Siebel 7.7
+   ###################################################################
+
+$VER = 1.1;
+   ###################################################################
+   # HISTORY
+   # Vers:   Date:     Description
+   # v1.1    11/09/15  Original tracking
+   ###################################################################
+
+
+   #----------------------------------------------------------------
+   #--  OPTION HANDLING  -------------------------------------------
+   #----------------------------------------------------------------
+sub do_opts {
+  my $man = 0, $help = 0;
+
+  use Getopt::Long;
+  $retval=GetOptions(
+            "f=s"       =>\$optfile,
+            "dbg"       =>\$dbg,
+            'help|?'    =>\$help,
+            'man'       =>\$man
+            ) ;
+
+  # handles unknown options. (ARGV isnt empty!)
+  if ( $ARGV[0] ) {
+    print "Unprocessed by Getopt::Long\n";
+    foreach (@ARGV) { print "$_\n"; }
+    pod2usage(-message => "Unprocessed by Getopt::Long",
+              -exitval => 2,
+              -verbose => 0,
+              -output  => \*STDERR);
+  }
+
+  #- Parse options and print usage if there is a syntax error,
+  #- or if usage was explicitly requested.
+  pod2usage(1)             if $help;
+  pod2usage(-verbose => 2) if $man;
+
+   # #- If no arguments were given, then allow STDIN to be used only
+   # #- if it's not connected to a terminal (otherwise print usage)
+   #   pod2usage("$0: No files given.")  if ((@ARGV == 0) && (-t STDIN));
+
+  return $retval;
+}
+
+&do_opts or die "do_opts failed\n" ;
+
+
+   ###########################################3
+   #Main
+   ###########################################3
+   #
+
+if (! defined($optfile) ) { print("Usage $0: -f result_file\n"); }
+
+$resultname=$optfile if ( defined($optfile) ) ;
+
+my %success_expect = (
+  "located at:"                             => 1,
+  "Performing Pre Upgrade"                  => 1,
+  "Upgrading Oracle Server"                 => 1,
+  "Upgrading JServer JAVA Virtual Machine"  => 1,
+  "Upgrading Oracle XDK for Java"           => 1,
+  "Upgrading Real Application Clusters"     => 1,
+  "Upgrading OLAP Analytic Workspace"       => 1,
+  "Upgrading OLAP Catalog"                  => 1,
+  "Upgrading Oracle Text"                   => 1,
+  "Upgrading Oracle XML Database"           => 1,
+  "Upgrading Oracle Java Packages"          => 1,
+  "Upgrading Oracle interMedia"             => 1,
+  "Upgrading Spatial"                       => 1,
+  "Upgrading Expression Filter"             => 1,
+  "Upgrading Oracle OLAP API"               => 1,
+  "Performing Post Upgrade"                 => 1,
+  "Generating Summary"                      => 1,
+  "100% complete "                          => 1,
+  "Check the log file"                      => 1,
+);
+
+
+open(LFILE,"${resultname}") or die ("Cannot open $resultname\n");
+while  ( <LFILE> ) {
+  $actual{$1}++,next if (/located at:/ ) ;
+  $actual{$1}++,next if (/Performing Pre Upgrade/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle Server/ ) ;
+  $actual{$1}++,next if (/Upgrading JServer JAVA Virtual Machine/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle XDK for Java/ ) ;
+  $actual{$1}++,next if (/Upgrading Real Application Clusters/ ) ;
+  $actual{$1}++,next if (/Upgrading OLAP Analytic Workspace/ ) ;
+  $actual{$1}++,next if (/Upgrading OLAP Catalog/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle Text/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle XML Database/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle Java Packages/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle interMedia/ ) ;
+  $actual{$1}++,next if (/Upgrading Spatial/ ) ;
+  $actual{$1}++,next if (/Upgrading Expression Filter/ ) ;
+  $actual{$1}++,next if (/Upgrading Oracle OLAP API/ ) ;
+  $actual{$1}++,next if (/Performing Post Upgrade/ ) ;
+  $actual{$1}++,next if (/Generating Summary/ ) ;
+  $actual{$1}++,next if (/100% complete / ) ;
+  $actual{$1}++,next if (/Check the log file/ ) ;
+
+}
+
+foreach $line (keys %success_expect ) {
+  if ( ! defined($actual{$line}) )         { 
+    die ("$line is not found within actual\n"); }
+  if ( ! defined($success_expect{$line}) ) { 
+    die ("$line is not found within success_expect\n"); }
+  if ( $actual{$line} != $success_expect{$line} )  {
+    die ("$line, A: $actual{$line} E: $success_expect{$line}: $Counts are wrong. Failed\n");
+  }
+}
+exit 0;

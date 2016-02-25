@@ -1,0 +1,99 @@
+#!/usr/bin/perl
+
+   ###################################################################
+   # There is No official support.
+   # Use at your own risk. Developed for Siebel 7.7
+   ###################################################################
+
+$VER = 1.1;
+   ###################################################################
+   # HISTORY
+   # Vers:   Date:     Description
+   # v1.1    11/09/15  Original tracking
+   ###################################################################
+
+
+   #----------------------------------------------------------------
+   #--  OPTION HANDLING  -------------------------------------------
+   #----------------------------------------------------------------
+sub do_opts {
+  my $man = 0, $help = 0;
+
+  use Getopt::Long;
+  $retval=GetOptions(
+            "f=s"       =>\$optfile,
+            "dbg"       =>\$dbg,
+            'help|?'    =>\$help,
+            'man'       =>\$man
+            ) ;
+
+  # handles unknown options. (ARGV isnt empty!)
+  if ( $ARGV[0] ) {
+    print "Unprocessed by Getopt::Long\n";
+    foreach (@ARGV) { print "$_\n"; }
+    pod2usage(-message => "Unprocessed by Getopt::Long",
+              -exitval => 2,
+              -verbose => 0,
+              -output  => \*STDERR);
+  }
+
+  #- Parse options and print usage if there is a syntax error,
+  #- or if usage was explicitly requested.
+  pod2usage(1)             if $help;
+  pod2usage(-verbose => 2) if $man;
+
+   # #- If no arguments were given, then allow STDIN to be used only
+   # #- if it's not connected to a terminal (otherwise print usage)
+   #   pod2usage("$0: No files given.")  if ((@ARGV == 0) && (-t STDIN));
+
+  return $retval;
+}
+
+&do_opts or die "do_opts failed\n" ;
+
+
+   ###########################################3
+   #Main
+   ###########################################3
+   #
+
+  $HNAME="<%= node[:hostname] %>";
+$APPBASE="<%= node[:ebs][:vg][:app_fs_nam] %>";
+ $ORASID="<%= node[:ebs][:db][:sid] %>";
+
+$LOGD="${APPBASE}/fs1/inst/apps/${ORASID}_${HNAME}/logs";
+$logname=`ls -1 ${LOGD}/*.log`;
+
+$logname=$optfile if ( defined($optfile) ) ;
+print("$logname\n");
+
+my %success_expect = (
+  "10.1.2 Tools patched successfully" => 1,
+  "AutoConfig completed successfully" => 2,
+  "Created the domain successfully" => 2,
+  "EBS Registered successfully" => 2,
+  "Perl script txkChkEBSDependecies.pl got executed successfully" => 2,
+  "Web Tier Utilities installed successfully" => 1,
+  "Weblogic Server installed successfully" => 1,
+  "Result : Passed" => 10,
+);
+
+open(LFILE,"${logname}") or die ("Cannot open $logname\n");
+while  ( <LFILE> ) {
+  $actual{$1}++ if ( /(10.1.2 Tools patched successfully)/ ) ;
+  $actual{$1}++ if ( /(AutoConfig completed successfully)/ ) ;
+  $actual{$1}++ if ( /(Created the domain successfully)/ ) ;
+  $actual{$1}++ if ( /(EBS Registered successfully)/ ) ;
+  $actual{$1}++ if ( /(Perl script txkChkEBSDependecies.pl got executed successfully)/ ) ;
+  $actual{$1}++ if ( /(Web Tier Utilities installed successfully)/ ) ;
+  $actual{$1}++ if ( /(Weblogic Server installed successfully)/ ) ;
+  $actual{$1}++ if ( /(Result : Passed)/ ) ;
+}
+
+foreach $line (keys %success_expect ) {
+  if ( ! defined($actual{$line}) ) { die ("$line is not found within actual\n"); }
+  if ( ! defined($success_expect{$line}) ) { die ("$line is not found within success_expect\n"); }
+  if ( $actual{$line} != $success_expect{$line} )  {
+    die ("$line, A: $actual{$line} E: $success_expect{$line}: $Counts are wrong. Failed\n");
+  }
+}

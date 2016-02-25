@@ -1,0 +1,29 @@
+#!/usr/bin/ksh
+
+ETCDIR="<%= node[:ebs][:etcc][:rundir] %>"
+DBMTXT="<%= node[:ebs][:etcc][:dbm_contextf] %>"
+APPSPW="<%= node[:ebs][:appspw] %>"
+ outdb="<%= node[:ebs][:db][:outdir] %>"
+
+if [ ! -d $ETCDIR ] ; then echo "Cannot find $ETCDIR. exiting..."; exit 4 ; fi
+if [ ! -f $DBMTXT ] ; then echo "Cannot find $DBMTXT. exiting..."; exit 16; fi
+
+cd $ETCDIR;
+
+command="ksh $ETCDIR/checkDBpatch.sh";
+context=$DBMTXT;
+outfile="$outdb/out.etcc_dbm"
+
+${command} contextfile=${context} <<-EOF > ${outfile}
+$APPSPW
+EOF
+
+   #Success line is: "All the required one-off bugfixes are present in Database ORACLE_HOME."
+   #Fail    line is: "missing DBMS bugfixes are"
+fgrep -- 'All the required one-off bugfixes are present' ${outfile}
+if [ $? == 0 ] ; then
+  echo "Success!"
+  exit 0
+fi
+
+exit 32 # didnt find the 'success line' so fail.

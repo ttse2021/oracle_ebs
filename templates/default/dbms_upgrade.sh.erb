@@ -1,0 +1,47 @@
+#!/usr/bin/ksh
+
+dbusr=<%= node[:ebs_dbuser] %>
+  sid=<%= node[:ebs][:db][:sid] %>
+
+  #########################################################################
+  #  If there are dbms processes running then lets check the dbms version
+  #########################################################################
+
+ps -aef | fgrep ${dbusr} | fgrep pmon_${sid} | fgrep -v fgrep > /dev/null 2>&1
+if [ $? == 0 ] ; then
+  # hmmmm database is running. Is it in upgrade mode?
+   sqlplus '/ as sysdba' <<-EOF | fgrep MIGRATE > /dev/null
+select instance_name,version,status from v\$instance;
+quit;
+EOF
+  if [ $? == 0 ] ; then
+    #We found MIGRATE, dbms is good. return now
+    exit 0; # dbms is running cool
+  fi
+  return 255; #Problem dbms is not in upgrade mode. Abort
+fi
+
+  #So No DBMS is currently running Cool. Lets start in upgrade mode
+  #
+sqlplus '/ as sysdba' <<-EOF
+startup upgrade
+quit;
+EOF
+
+  # ok lewts test if its up and running in upgrade mode
+  #
+sleep 10
+
+ps -aef | fgrep ${dbusr} | fgrep pmon_${sid} | fgrep -v fgrep > /dev/null 2>&1
+if [ $? == 0 ] ; then
+  # hmmmm database is running. Is it in upgrade mode?
+   sqlplus '/ as sysdba' <<-EOF | fgrep MIGRATE > /dev/null
+select instance_name,version,status from v\$instance;
+quit;
+EOF
+  if [ $? == 0 ] ; then
+    #We found MIGRATE, dbms is good. return now
+    exit 0; # dbms is running cool
+  fi
+  return 255; #Problem dbms is not in upgrade mode. Abort
+fi

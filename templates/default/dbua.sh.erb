@@ -1,0 +1,62 @@
+#!/user/bin/ksh
+
+.  <%= node[:ebs][:db][:bin] %>/1124.env
+
+env > <%= node[:ebs][:db][:outdir] %>/out.dbua_env
+
+<%= node[:ebs][:db][:orahome4] %>/bin/dbua -silent -sid <%= node[:ebs][:db][:sid] %> \
+  -oracleHome <%= node[:ebs][:db][:orahome4] %> \
+  -oracleBase <%= node[:ebs][:db][:orabase] %> \
+  -diagnosticDest <%= node[:ebs][:db][:orabase] %>/cfgtoollogs \
+  -autoextendFiles \
+  -disableArchiveLogMode \
+  -recompile_invalid_objects true -degree_of_parallelism 4 \
+  -keepHiddenParams \
+  -emConfiguration NONE
+
+   # dbua   [-silent] [<command> [options] ]*  
+   # Following are the possible commands:
+   # 
+   #     [-sid <Specify System Identifier> ]
+   #     [-oracleHome <Specify Source Database Oracle Home > ]
+   #     [-oracleBase <Specify Database Oracle Base > ]
+   #     [-diagnosticDest <Specify Database Diagnostic Destination > ]
+   #     [-sysDBAUserName <user name  with SYSDBA privileges> ]
+   #     [-sysDBAPassword <password for sysDBAUserName user name> ]
+   #     [-autoextendFiles <Autoextend database files during upgrade. Datafiles will be reverted back to their original autoextend settings after upgrade.> ]
+   #     [-newGlobalDbName <Specify New Global Database Name> ]
+   #     [-newSid <Specify New System Identifier> ]
+   #     [-generateMapFile <Only generate database map file in log location then exit DBUA> ]
+   #     [-useASM <Specify Whether Database Is Using Automatic Storage Management> ]
+   #     [-commonFileLocation <Specify Common Location to Store Database Files> ]
+   #     [-omfLocation <Specify Database Area for Oracle-Managed Files> ]
+   #     [-databaseMapFile <Specify Full Name of Map File to Map Database Files> ]
+   #     [-newRecoveryArea <Specify Recovery Area for Moved Database> ]
+   #     [-newRecoveryAreaSize <Specify Recovery Area Size (MB) for Moved Database> ]
+   #     [-apexAdminPassword <Specify Password for Application Express Administrator> ]
+   #     [-disableUpgradeScriptLogging {This command disables the detailed log generation for running SQL scripts during the upgrade process. By default this is enabled. To enable the log generation, don't specify this command.}]
+   #     [-backupLocation <Specify directory to back-up your database before starting the upgrade> ]
+   #     [-sysauxTablespace
+   #              -datafileName <Specify the complete path of datafile for creating SYSAUX tablespace.> 
+   #              -datafileSize <Specify the size of datafile for creating SYSAUX tablespace {500M, 10G}.> ]
+   #              -datafileSizeNext <Specify the next extent for the datafile.> ]
+   #              -datafileSizeMax <Specify the max size of datafile.> ]
+   #     [-postUpgradeScripts <Specify a comma separated list of SQL scripts with their complete pathnames. These scripts will be executed at the end of the upgrade.> ]
+   #     [-initParam <Specify a comma separated list of initialization parameter values of the format name=value,name=value.> ]
+   #     [-disableArchiveLogMode <Turn off Archiving and Flashback Logging for the duration of the upgrade.> ]
+   #     [-recompile_invalid_objects <true | false> ]
+   #             [-degree_of_parallelism <Specify number of CPU's to be used for parallel recompilation> ]
+   #     [-upgradeTimezone]
+   #     [-keepHiddenParams <To keep specified hidden parameters during database upgrade>]
+   #     [-emConfiguration <CENTRAL|LOCAL|ALL|NONE>
+   #              -dbsnmpPassword<DBSNMP user password>
+   #              -sysmanPassword<SYSMAN user password>
+   #              -asmPassword<SYS password for ASM instance>
+   #              -hostUserName<Host user name for EM backup job>
+   #              -hostUserPassword<Host user password for EM backup job>
+   #              -backupSchedule <Daily backup schedule in the form of hh:mm>]
+   #             [-centralAgent <Enterprise Manager central agent location>]]
+   #             [-recoveryAreaDestination <destination directory for all recovery files>]
+   #             [-localRacSid <The local sid of the cluster database if the cluster database is not registered in OCR>]
+   #     [-h | -help {Shows this usage help.}]
+

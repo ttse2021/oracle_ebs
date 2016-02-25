@@ -1,0 +1,45 @@
+
+while ( <> ) {
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( /=(VIS)$/ );
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( /=(VIS)_/ );
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( /\/(VIS)_/ );
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( /SID=(VIS)/ );
+
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( />(VIS)</ );
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( />(VIS)_/ );
+  s/$1/<%= node[:ebs][:db][:sid] %>/g                if ( /\/conf_(VIS)/ );
+
+  s/$1/<%= node[:hostname] %>/g                      if ( /_(p135n51)/ );
+  s/$1/<%= node[:hostname] %>/g                      if ( />(p135n51)/ );
+  s/$1/<%= node[:hostname] %>/g                      if ( /=(p135n51)/ );
+
+  s/$1/<%= node[:domain] %>/g                        if ( /pbm.ihost.com/ );
+
+  s/$1/<%= node[:ebs][:db][:orahome3] %>/g            if ( /\/ebdbm\/base\/11.2.0/ );
+  s/$1/<%= node[:ebs][:db][:dbf_dir] %>/g            if ( /\/ebdbm\/oradata/ );
+  s/$1/<%= node[:ebs][:db][:orabase] %>/g            if ( /\/ebdbm\/base/ );
+  s/$1/<%= node[:ebs][:vg][:app_fs_nam] %>/g         if ( /\/ebapps/ );
+
+  s/$1/<%= node[:ebs_appuser] %>/g            if ( />(applmgr)</ );
+  s/$1/<%= node[:ebs_appuser] %>/g            if ( /=(applmgr)/ );
+  s/$1/<%= node[:ebs_dbuser] %>/g             if ( />(oraprod)</ );
+  s/$1/<%= node[:ebs_dbuser] %>/g             if ( /=(oraprod)/ );
+  s/$1/<%= node[:ebs_group] %>/g              if ( />(oinstall)</ );
+  s/$1/<%= node[:ebs_group] %>/g              if ( /=(oinstall)/ );
+  print;
+}
+
+#  s/$1/=XXX/g                 if ( /=VIS$/ );
+#  s/$1/=XXX_/g                if ( /=VIS_/ );
+#  s/$1/\/XXX_/g               if ( /\/VIS_/ );
+#  s/$1/SID=XXX/g              if ( /SID=VIS/ );
+#  s/$1/>XXX</g                if ( />VIS</ );
+#  s/$1/>XXX_/g                if ( />VIS_/ );
+#  s/$1/\/conf_XXX/g           if ( /\/conf_VIS/ );
+#  s/$1/_QQQQQQQ/g             if ( /_p135n51/ );
+#  s/$1/>QQQQQQQ</g            if ( />p135n51/ );
+#  s/$1/=QQQQQQQ/g             if ( /=p135n51/ );
+#  s/$1/=QQQ.QQQQQ.QQQ/g       if ( /pbm.ihost.com/ );
+#  s/$1/\/QQQQQ\/QQQQQQQ/g     if ( /\/ebdbm\/oradata/ );
+#  s/$1/\/QQQQQ\/QQQQ/g        if ( /\/ebdbm\/base/ );
+#  s/$1/\/QQQQQQ/g             if ( /\/ebapps/ );

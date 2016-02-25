@@ -1,0 +1,114 @@
+#!/usr/bin/ksh
+
+   ############################################################################
+   # From the patch 20745242 Readme.txt:
+   # 
+   # Run the adgrants.sql script as a user that can connect as SYSDBA 
+   # to grant privileges to selected SYS objects and create PL/SQL 
+   # profiler objects.
+   # 
+   #   Usage:
+   # 
+   #   1. Create $ORACLE_HOME/appsutil/admin on the database server.
+   # 
+   #   2. Compare the version of adgrants.sql(UNIX) in $APPL_TOP/admin
+   #      to that in patch directory.
+   #      Or, compare the version of adgrants_nt.sql(Windows)
+   #      in %APPL_TOP%\admin to that in patch directory.
+   # 
+   #   3. Copy the higher version of adgrants.sql (UNIX) to
+   #      $ORACLE_HOME/appsutil/admin.
+   #      Or, copy higher version of adgrants_nt.sql (Windows) to
+   #      %ORACLE_HOME%\appsutil\admin.
+   # 
+   #   4. Set the environment to point to ORACLE_HOME on the database server.
+   # 
+   #   5. Use SQL*Plus to run the script:
+   # 
+   #      UNIX:
+   #      $ sqlplus /nolog
+   #      SQL> @$ORACLE_HOME/appsutil/admin/adgrants.sql <APPS schema name>
+   ############################################################################
+
+
+export  _newgrant=<%= node[:ebs][:adgrants][:patchn] %>
+export     _pdir="<%= node[:ebs][:seedTable][:patchdir] %>"
+export  _APPHOME="<%= node[:ebs][:vg][:app_fs_nam] %>/fs1"
+export    _DBADM="<%= node[:ebs][:db][:orahome4] %>/appsutil/admin"
+
+
+   ###########################################################
+   # Doc ID 1617461.1 says to source this env
+   #
+export _ENVF="APPS<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>.env"
+export _ENVF="${_APPHOME}/EBSapps/appl/${_ENVF}"
+if [ ! -f ${_ENVF} ] ; then echo "APP $_ENVF env is missing"; exit 4; fi
+.    ${_ENVF}
+
+
+   ###############################################
+   # Doc ID 1617461.1 make sure the sourcing took.
+   #
+export  APPL_TOP=${APPL_TOP?}
+export  APPL_TOP_NE=${APPL_TOP_NE?}
+
+
+   ###############################################
+   # 20745242: It better be created
+   #
+if [ ! -d ${_DBADM} ] ; then
+  echo "exiting. $_DBADM is not created"
+  exit 8
+fi
+
+
+   ###################################################
+   # 20745242: make sure we can find adgrants.sql
+   #
+export   PATCHFIL="${_pdir}/${_newgrant}/admin/adgrants.sql"
+export CURRENTFIL="$APPL_TOP/admin/adgrants.sql"
+
+if [ ! -f $PATCHFIL ] ; then
+  echo "Cannot find PATCHFIL: $PATCHFIL"; exit 5;
+fi
+if [ ! -f $CURRENTFIL ] ; then
+  echo "Cannot find CURRENTFIL: $CURRENTFIL"; exit 8;
+fi
+
+
+
+   ###################################################
+   # 20745242: Each adgrants.sql file has timestamp
+   # at 3rd line. Just compar version numbers within.
+   #
+   # ex: REM $Header: adgrants.sql 120.67.12020000.8 2012/10/05 15:19:21 sstomar ship $
+   #
+tuplet3_app=`head ${CURRENTFIL} | fgrep Header | perl -ane 'print("$F[3]\n")'`
+tuplet3_pat=`head ${PATCHFIL}   | fgrep Header | perl -ane 'print("$F[3]\n")'`
+
+echo "Debug: AP: ${tuplet3_app} PAT: ${tuplet3_pat}"
+if [ "X$tuplet3_app" == "X$tuplet3_pat" ] ; then
+  echo "Exiting. The adgrant.sql is up to date."; exit 0
+fi
+
+appval=`echo $tuplet3_app | perl -a -F'\.' -ne 'print("$F[3]")'`
+patval=`echo $tuplet3_pat | perl -a -F'\.' -ne 'print("$F[3]")'`
+
+
+   #< REM $Header: adgrants.sql 120.67.12020000.8 2012/10/05 15:19:21 sstomar ship $
+   #---
+   #> REM $Header: adgrants.sql 120.67.12020000.36 2015/07/16 09:22:15 absandhw ship $
+
+   # We use only the last digits to compare. This may not work
+   # if 
+if (( patval > appval )) ; then
+  echo "AP: $appval PAT: $patval"
+  echo cp $PATCHFIL $_DBADM
+       cp $PATCHFIL $_DBADM
+else
+  echo "AP: $appval PAT: $patval"
+  echo cp $CURRENTFIL $_DBADM
+       cp $CURRENTFIL $_DBADM
+fi
+
+exit 0

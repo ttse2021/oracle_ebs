@@ -1,0 +1,50 @@
+#!/usr/bin/ksh
+
+
+.  <%= node[:ebs][:app][:bin] %>/funs
+if app_is_down ; then echo "APP is already down"; exit 0 ; fi
+
+   # ===============
+   # Source Environment if exists
+   # ===============
+function srcenv
+{
+if [ "X${COMMON_TOP}" != "X" ] ; then
+  echo "Already sourced";
+  return 0;
+fi
+export _FS1ENV="<%= node[:ebs][:app][:runenv] %>"
+export _EBSAPP="<%= node[:ebs][:vg][:app_fs_nam] %>/EBSapps.env"
+if  [ -f "${_EBSAPP}" ] ; then
+  echo ". ${_EBSAPP} run"
+. ${_EBSAPP} run
+  return 0
+fi
+if  [ -f "${_FS1ENV}" ] ; then
+  echo ". ${_FS1ENV}"
+. ${_FS1ENV}
+  return 0
+fi
+}
+srcenv
+   # ===============
+
+
+rm -f <%= node[:ebs][:app][:outdir] %>/out.stopapp 2>&1
+touch <%= node[:ebs][:app][:outdir] %>/out.stopapp 2>&1
+
+
+SCRIPTS="<%= node[:ebs][:vg][:app_fs_nam] %>/fs1/inst/apps/<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>/admin/scripts"
+  echo "========= ${SCR}/adstpall.sh ========="           >> <%= node[:ebs][:app][:outdir] %>/out.stopapp 2>&1
+  $SCRIPTS/adstpall.sh <<EOF                              >> <%= node[:ebs][:app][:outdir] %>/out.stopapp 2>&1
+<%= node[:ebs][:appsuser] %>
+<%= node[:ebs][:appspw] %>
+<%= node[:ebs][:wlspw] %>
+EOF
+ret=$?
+if [ $ret != 0 ] ; then 
+  echo "Error occcured: check the output file: <%= node[:ebs][:app][:outdir] %>/out.stopapp"
+  exit $ret
+fi
+sleep 120
+exit 0

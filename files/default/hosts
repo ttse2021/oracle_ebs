@@ -1,0 +1,7 @@
+127.0.0.1       localhost.pbm.ihost.com loopback localhost      # loopback (lo0) name/address
+::1             loopback localhost      # IPv6 loopback (lo0) name/address
+129.40.71.51    p135n51.pbm.ihost.com p135n51
+129.40.71.52    p135n52.pbm.ihost.com p135n52
+129.40.71.53    p135n53.pbm.ihost.com p135n53
+129.40.71.55    p135n55.pbm.ihost.com p135n55
+129.40.105.161  nim1.pbm.ihost.com

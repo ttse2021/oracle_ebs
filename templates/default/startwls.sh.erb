@@ -1,0 +1,59 @@
+#!/usr/bin/ksh
+
+.  <%= node[:ebs][:app][:bin] %>/funs
+if wls_is_up ; then echo "WLS is already running"; exit 0 ; fi
+
+  # cleanup
+rm -f "<%= node[:ebs][:app][:outdir] %>/out.startwls";
+touch "<%= node[:ebs][:app][:outdir] %>/out.startwls";
+SCRIPTS="<%= node[:ebs][:vg][:app_fs_nam] %>/fs1/inst/apps/<%= node[:ebs][:db][:sid] %>_<%= node[:hostname] %>/admin/scripts"
+
+echo "========= ${SCR}/adadminsrvctl.sh start <%= node[:ebs][:db][:sid] %> =========" >> \
+	"<%= node[:ebs][:app][:outdir] %>/out.startwls" 2>&1
+$SCRIPTS/adadminsrvctl.sh start <<EOF                        >> \
+	"<%= node[:ebs][:app][:outdir] %>/out.startwls" 2>&1
+<%= node[:ebs][:wlspw] %>
+<%= node[:ebs][:appspw] %>
+EOF
+ret=$?
+if [ $ret != 0 ] ; then 
+  echo "Error occcured: check the output file: <%= node[:ebs][:app][:outdir] %>/out.startwls"
+  exit $ret
+fi
+
+  # There are 4 processes brought up by startwls: They are:
+  #   adRegisterWLSListeners.pl
+  #   weblogic.NodeManager
+  #   adRegisterWLSListeners.log
+  #   weblogic.Server
+
+function is_up_when
+{
+  integer SLEEP=10
+  integer STOPVAL=6
+  integer cnt=0
+  integer foundall=0;
+
+  while ( true )
+  do
+    foundall=0
+    for i in adRegisterWLSListeners.pl weblogic.NodeManager weblogic.Server
+    do
+      ps -aef | fgrep $LOGNAME | fgrep -v fgrep | fgrep $i > /dev/null
+      if [ $? == 0 ] ; then
+        (( foundall=foundall+1))
+      else
+        echo "Waiting for $i ..."
+      fi
+    done
+    if [ $foundall == 3 ] ; then
+      exit 0
+    fi
+    sleep $SLEEP
+    ((cnt=cnt+1))
+    if (( cnt > STOPVAL )) ; then
+      exit 8
+    fi
+  done
+}
+is_up_when
