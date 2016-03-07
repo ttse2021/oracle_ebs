@@ -13,7 +13,7 @@ Installs and configures Oracle E-Business Suite Version 12.2.5:
   * Installs required patches to Oracle EBS components,
   * Updates EBS to version 12.2.5, and installs 12.2.5 patches,
 
-Initial Version: v0.0.2
+Current Version: v0.0.3
 
 Dependency: AIX 0.1.0
 
@@ -42,10 +42,11 @@ Quickstart (EBS)
     Doc ID: 1594274.1
     Doc ID: 1617461.1
 * Download Oracle Database 11.2.0.4 binaries from edelivery.oracle.com
-* Set up your nfs mounted /ebstage stage directory. (See Oracle Documentation)
+* Create your staging directory on the AIX 7.1 LPAR (default)
+     Set up your nfs or local mounted /ebstage stage directory. (See Oracle Documentation)
 * Create a role to override the default attribute values for your environment
 
-  ebs51.rb (Role file)
+  ebsrole.rb (Role file)
   ----------------------------------------------------------------------
   Name "ebs51"
   Description "Role applied to Oracle E-Business Suite on AIX 7.1."
@@ -60,6 +61,7 @@ Quickstart (EBS)
      :db    =>  { :usr => { :uid     => 3000 } },
      :stage =>  { :nfshost           => '<nfshostname>',
                   :nfsmount          => '/ebstage'},
+                  :is_nfsmount       => true,
      :vg    =>  { :app_fs_nam        => '/applmgr',
                   :app_fs_siz        => 198, # GB
                   :db_fs_nam         => '/d01',
@@ -73,14 +75,14 @@ Quickstart (EBS)
   ----------------------------------------------------------------------
 
 
-* Create a role to override the default attribute values for your environment
 * Bootstrap the node, telling Chef to install itself, and install the 
   Oracle E-Business Suite environment for the DEMO Database, 'VIS'.
 
-   Ex: knife bootstrap <TARGETNODE> -x root -P <root_password> -N <TARGETNODE> -r role[eba51]
+   Ex: knife bootstrap <TARGETNODE> -x root -P <root_password> -N <TARGETNODE> -r role[ebsrole]
     where TARGETNODE is the AIX 7.1 LPAR.
 
 * This Install will take plenty of time, so find a good book to read.
+  (On my fastest machine, it took over 12 hours, on slower machines/disks, can be 20 hours)
 
 
 Requirements
