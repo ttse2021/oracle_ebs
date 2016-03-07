@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:vnc_session_user         *'
-log '*                                            *'
-log '**********************************************'
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:vnc_session_user         *
+     *                                            *
+     **********************************************
+    '
 
 
 vnc_owner = 'root'
@@ -30,9 +32,10 @@ execute "create_vnc_passwd_file" do
   group vnc_group
   cwd   vnc_home
   environment ( vnc_env )
-  command "ksh #{node[:ebs][:db][:bin]}/vnc_#{vnc_owner}.sh > #{node[:ebs][:db][:outdir]}/out.vnc_#{vnc_owner} 2>&1"
-  creates                                                    "#{node[:ebs][:db][:outdir]}/out.vnc_#{vnc_owner}"
-  not_if ( File.directory?( "#{vnc_home}/.vnc/passwd" ) )
+  command "ksh #{node[:ebs][:db][:bin]}/vnc_#{vnc_owner}.sh "\
+              "> #{node[:ebs][:db][:outdir]}/out.vnc_#{vnc_owner} 2>&1"
+  creates     "#{node[:ebs][:db][:outdir]}/out.vnc_#{vnc_owner}"
+  not_if { File.file?( "#{vnc_home}/.vnc/passwd" ) }
 end
 
 execute "make_vnc_session_#{vnc_num}_for_#{vnc_owner}" do

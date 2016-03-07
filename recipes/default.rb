@@ -1,64 +1,67 @@
-log '*****************************************'
-log '*                                       *'
-log '*        EBS Recipe:default             *'
-log '*                                       *'
-log '*****************************************'
-
-  ######################
-  #Machine Preparation #
-  ######################
-
-  #-----------------------------------------------------------
-  # volume groups, lvm, file system creation. FS expansion   -
-  #-----------------------------------------------------------
-include_recipe 'oracle_ebs::fs_creation'
-
-
-  #-----------------------------------------------------------
-  # Create the oracle groups and users                       -
-  #-----------------------------------------------------------
-include_recipe 'oracle_ebs::mkgroups'
-include_recipe 'oracle_ebs::mkusers'
-
-  #-------------------------------------------------------------
-  # Kernel and OS changes. Look within it, many files included -
-  #-------------------------------------------------------------
-include_recipe 'oracle_ebs::kernel'
-
-
-  #-----------------------------------------------------------
-  # Now lets reboot the box.                                 -
-  #-----------------------------------------------------------
-include_recipe 'oracle_ebs::reboot'
-
-  ######################
-  #EBS  INSTALL        #
-  ######################
-
-  #-----------------------------------------------------------
-  # Linux utilties that may be used by CHEF recipes          -
-  #-----------------------------------------------------------
-include_recipe 'oracle_ebs::linux_tools'
-
-  #-----------------------------------------------------------
-  # We create directories to support the installation
-  #-----------------------------------------------------------
-include_recipe 'oracle_ebs::directory_creation'
-
-  #-----------------------------------------------------------
-  # The rapidwiz requires some special handling for xterm    = 
-  #-----------------------------------------------------------
-include_recipe 'oracle_ebs::rapidwiz_conf'
-
-  #-----------------------------------------------------------
-  # The big tomato. Run the base installation
-  #-----------------------------------------------------------
-
-include_recipe 'oracle_ebs::rapidwiz_install'
-
-include_recipe 'oracle_ebs::oratab'
-include_recipe 'oracle_ebs::dbms_upg_prep'
-include_recipe 'oracle_ebs::dbms_upg1'   # prep 11203 for 11204
+#AA log '
+#AA      ***************************************
+#AA      *                                     *
+#AA      *        EBS Recipe:default           *
+#AA      *                                     *
+#AA      ***************************************
+#AA     '
+#AA 
+#AA   ######################
+#AA   #Machine Preparation #
+#AA   ######################
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # volume groups, lvm, file system creation. FS expansion   -
+#AA   #-----------------------------------------------------------
+#AA include_recipe 'oracle_ebs::fs_creation'
+#AA include_recipe 'oracle_ebs::fs_grow'
+#AA 
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # Create the oracle groups and users                       -
+#AA   #-----------------------------------------------------------
+#AA include_recipe 'oracle_ebs::mkgroups'
+#AA include_recipe 'oracle_ebs::mkusers'
+#AA 
+#AA   #-------------------------------------------------------------
+#AA   # Kernel and OS changes. Look within it, many files included -
+#AA   #-------------------------------------------------------------
+#AA include_recipe 'oracle_ebs::kernel'
+#AA 
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # Now lets reboot the box.                                 -
+#AA   #-----------------------------------------------------------
+#AA include_recipe 'oracle_ebs::reboot'
+#AA 
+#AA   ######################
+#AA   #EBS  INSTALL        #
+#AA   ######################
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # Linux utilties that may be used by CHEF recipes          -
+#AA   #-----------------------------------------------------------
+#AA include_recipe 'oracle_ebs::linux_tools'
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # We create directories to support the installation
+#AA   #-----------------------------------------------------------
+#AA include_recipe 'oracle_ebs::directory_creation'
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # The rapidwiz requires some special handling for xterm    = 
+#AA   #-----------------------------------------------------------
+#AA include_recipe 'oracle_ebs::rapidwiz_conf'
+#AA 
+#AA   #-----------------------------------------------------------
+#AA   # The big tomato. Run the base installation
+#AA   #-----------------------------------------------------------
+#AA 
+#AA include_recipe 'oracle_ebs::rapidwiz_install'
+#AA 
+#AA include_recipe 'oracle_ebs::oratab'
+#AA include_recipe 'oracle_ebs::dbms_upg_prep'
+#AA include_recipe 'oracle_ebs::dbms_upg1'   # prep 11203 for 11204
 include_recipe 'oracle_ebs::vnc_session_user'
 
 include_recipe 'oracle_ebs::dbms_upg2'  # Install 11204 binaries, patches

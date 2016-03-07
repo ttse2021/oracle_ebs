@@ -85,11 +85,20 @@ default[:ebs][:maxuproc] = 16384
 # Kernel required filesets
 #------------------------------------
 #
-default[:ebs][:chk_filesets] = [ 'bos.adt.base','bos.adt.lib', 'bos.adt.libm', 
-                                 'bos.perf.libperfstat',    'bos.perf.perfstat',
-                                 'bos.perf.proctools',      'rsct.basic.rte', 
-                                 'rsct.compat.clients.rte', 'X11.motif.lib',
-                                 'openssh.base.server' ]
+default[:ebs][:chk_filesets] = [
+   'bos.adt.base',
+   'bos.adt.lib',
+   'bos.adt.libm',
+   'bos.loc.com.utf',
+   'bos.loc.utf.EN_US',
+   'bos.perf.libperfstat',
+   'bos.perf.perfstat',
+   'bos.perf.proctools',
+   'openssh.base.server' ,
+   'rsct.basic.rte',
+   'rsct.compat.clients.rte',
+   'X11.motif.lib',
+  ]
 
 #---------------------------------------------------
 # Miscellaneous Attributes.
@@ -175,6 +184,7 @@ default[:ebs][:dbm_patchdir]               = "#{node[:ebs][:vg][:db_fs_nam]}/Pat
 
 
 
+default[:ebs][:stage][:is_nfsmount]        = false
 default[:ebs][:stage][:nfsmount]           = '/ebstage'
 default[:ebs][:stage][:dir]                = "#{node[:ebs][:stage][:nfsmount]}/stage"
 default[:ebs][:stage][:rapiddir]           = "#{node[:ebs][:stage][:dir]}/startCD/Disk1/rapidwiz"

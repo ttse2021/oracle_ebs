@@ -1,7 +1,10 @@
-log '*                                            *'
-log '*        EBS Recipe:kernel_mkgroups          *'
-log '*                                            *'
-log '**********************************************'
+log '
+     ***************************************
+     *                                     *
+     *        EBS Recipe:mkgroups          *
+     *                                     *
+     ***************************************
+    '
 
 
 mygrp = node[:ebs][:db][:usr][:pgrp] # Get db primary user group

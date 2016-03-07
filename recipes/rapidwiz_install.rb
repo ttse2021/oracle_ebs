@@ -1,8 +1,10 @@
-log '************************************'
-log '*                                  *'
-log '*  EBS Recipe:rapidwiz_install     *'
-log '*                                  *'
-log '************************************'
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:rapidwiz_install         *
+     *                                            *
+     **********************************************
+    '
 
   #########################################################
   # attributs accessed:
@@ -36,11 +38,13 @@ unless File.file?( "#{outdb}/t.rapidwiz_installed" )
   end
   
   
-  log '***************************************************'
-  log '*                                                 *'
-  log '* rapidwiz_install hours to complets: (5-12 hours *'
-  log '*                                                 *'
-  log '***************************************************'
+log '
+     ***************************************************
+     *                                                 * 
+     * rapidwiz_install hours to complets: (5-12 hours * 
+     *                                                 * 
+     *************************************************** 
+    '
 
   # Rapidwiz can take a very long time to finish!
   #

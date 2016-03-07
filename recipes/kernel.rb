@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:kernel                   *'
-log '*                                            *'
-log '**********************************************'
+log '
+     ***************************************
+     *                                     *
+     *        EBS Recipe:kernel            *
+     *                                     *
+     ***************************************
+    '
 
 include_recipe 'oracle_ebs::kernel_directory'
 include_recipe 'oracle_ebs::kernel_oslevel'

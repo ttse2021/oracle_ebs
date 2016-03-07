@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:DOC1983050_Section5      *'
-log '*                                            *'
-log '**********************************************'
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:DOC1983050_Section5      *
+     *                                            *
+     **********************************************
+    '
 
 
   #########################################################
@@ -27,11 +29,13 @@ directory node[:ebs][:seedTable][:patchdir] do
   action :create
 end
 
-log '#-----------------------------------------#'
-log '# Doc_ID_1983050.1_Section5 is Upgrading  #'
-log '# Consolidated Seed Table                 #'
-log '# Patches came from Doc_ID: 1594274.1     #'
-log '#-----------------------------------------#'
+log '
+     #-----------------------------------------#
+     # Doc_ID_1983050.1_Section5 is Upgrading  #
+     # Consolidated Seed Table                 #
+     # Patches came from Doc_ID: 1594274.1     #
+     #-----------------------------------------#
+    '
 
 execute "Section5_startdb" do
   user          dbuser
@@ -46,12 +50,14 @@ execute "#{binapp}/startwls.sh" do
   environment ( appenv  )
 end
 
-log '***************************************************'
-log '*                                                 *'
-log '* Consolidated_SeedPatchTable_Upgrade Waiting...  *'
-log '* (30-60 minutes)                                 *'
-log '*                                                 *'
-log '***************************************************'
+log '
+     ***************************************************
+     *                                                 *
+     * Consolidated_SeedPatchTable_Upgrade Waiting...  *
+     * (30-60 minutes)                                 *
+     *                                                 *
+     ***************************************************
+    '
 
 #unpack the patch
 patchn=node[:ebs][:seedTable][:patchnum]

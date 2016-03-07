@@ -46,6 +46,9 @@ if [ "X$found" != "Xtrue" ] ; then show_usage_and_exit; fi
    #                                                                 #
    #*****************************************************************#
 
+# sometimes it needs a the display set.
+export DISPLAY="<%= node[:hostname] %>:10.1"
+
 case $_env in
    'fs1') _envf="${runbase}/appl/APPSVIS_p135n51.env" ;;
    'fs2') _envf="${patbase}/appl/APPSVIS_p135n51.env" ;;

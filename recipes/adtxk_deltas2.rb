@@ -1,8 +1,10 @@
-log '*******************************************'
-log '*                                         *'
-log '*        EBS Recipe:adtxk_deltas2         *'
-log '*                                         *'
-log '*******************************************'
+log '
+     ******************************************* 
+     *                                         * 
+     *        EBS Recipe:adtxk_deltas2         * 
+     *                                         * 
+     ******************************************* 
+    '
 
 
 appuser        =    node[:ebs_appuser]
@@ -45,7 +47,6 @@ end
   #---------------------------------------------------#
 patchn=node[:ebs][:ad_patches][:patch1]
 target= node[:ebs][:seedTable][:patchdir]
-log "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
 execute "unzip_#{patchn}" do
   user    appuser
   group   appgroup
@@ -60,7 +61,6 @@ end
   #-----------------------------------------#
 patchn=node[:ebs][:ad_patches][:patch2]
 target= node[:ebs][:seedTable][:patchdir]
-log "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
 execute "unzip_#{patchn}" do
   user    appuser
   group   appgroup
@@ -91,9 +91,11 @@ execute "chowner_of_adgrants_to_dbms_user" do
   command "chown #{dbmuser}:#{dbmgroup} #{node[:ebs][:db][:orahome4]}/appsutil/admin/adgrants.sql"
 end
 
-  log '***************************************************'
-  log '* Running latest adgrants.sql. takes 10 minutes   *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Running latest adgrants.sql. takes 10 minutes   *
+     ***************************************************
+    '
 
 execute "apply_adgrants_for_ad_txk" do
   user          dbmuser
@@ -103,9 +105,11 @@ execute "apply_adgrants_for_ad_txk" do
           " > #{outdbm}/out.applygrants 2>&1"
 end
 
-  log '***************************************************'
-  log '* Applying First AD patch.  Takes 10 minutes      *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying First AD patch.  Takes 10 minutes      *
+     ***************************************************
+    '
 
 patchn=node[:ebs][:ad_patches][:patch1]
 log "su - #{appuser} -c  #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -p #{patchn} -x'"
@@ -117,9 +121,11 @@ execute "adopHpatch_#{patchn}" do
   creates       "#{outapp}/t.ad1patch"
 end
   
-  log '***************************************************'
-  log '* Applying Second AD patch.  Takes 10 minutes     *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying Second AD patch.  Takes 10 minutes     *
+     ***************************************************
+    '
 
      # no -x option for this one.
 log "su - #{appuser} -c  #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -p #{patchn}'"
@@ -155,9 +161,11 @@ node[:ebs][:txk_patches][:patchlst].each do |patchn|
   end
 end
 
-  log '***************************************************'
-  log '* Applying latest TSK patches   takes 10 minutes  *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying latest TSK patches   takes 10 minutes  *
+     ***************************************************
+    '
 
 pat3=node[:ebs][:txk_patches][:patchlst][1]
 log "#{node[:ebs][:app][:bin]}/hpatch_txk.sh > #{outapp}/out.txkpatches 2>&1"

@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:mkusers                  *'
-log '*                                            *'
-log '**********************************************'
+log '
+     ***************************************
+     *                                     *
+     *        EBS Recipe:mkusers           *
+     *                                     *
+     ***************************************
+    '
 
 directory node[:ebs][:db][:outdir] do
   mode '0777'
@@ -61,7 +63,7 @@ execute "mv_the_orig_as_backup_for_#{tuser}" do
   user   tuser
   group  node[:ebs][:db][:usr][:pgrp]
   command "mv #{myhome}/.profile #{myhome}/.profile.orig"
-  not_if { File.directory?( "#{myhome}/.profile.orig" ) }
+  not_if { File.file?( "#{myhome}/.profile.orig" ) }
 end
 
   # see if theres a .profile file. should be.
@@ -127,7 +129,7 @@ execute "mv_the_orig_as_backup_for_#{tuser}" do
   user   tuser
   group  node[:ebs][:db][:usr][:pgrp]
   command "mv #{myhome}/.profile #{myhome}/.profile.orig"
-  not_if { File.directory?( "#{myhome}/.profile.orig") }
+  not_if { File.file?( "#{myhome}/.profile.orig") }
 end
 
   # see if theres a .profile file. should be.

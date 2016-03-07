@@ -1,14 +1,17 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:fs_creation              *'
-log '*                                            *'
-log '**********************************************'
+log '
+     *****************************************
+     *                                       *
+     *        EBS Recipe:fs_creation         *
+     *                                       *
+     *****************************************
+    '
 
 
   ##################################################################
   # Make sure that disk attributes exists for the host machine
   # Each machine should have their disks defined!
   #
+log "Disks: #{node[:ebs][:vg][:drives][node[:hostname]]}"
 raise "Disks not found for host" if node[:ebs][:vg][:drives][node[:hostname]].nil?
 
 
@@ -85,90 +88,78 @@ unless system("lsvg #{node[:ebs][:vg][:vgname]} > /dev/null 2>&1")
   end
 end
 
-  # Expand /tmp to Gigs in size
-  #
-gigs=node[:ebs][:vg][:tmp_fs_siz]
-execute "expand_/tmp_#{gigs}G" do
-  user 'root'
-  group node[:root_group]
-  command "/usr/sbin/chfs -a size=#{gigs}G /tmp"
-  only_if "lsfs | fgrep /tmp | "\
-          "perl -an -e '$GG=$F[4]/(1024*1024*2); exit ($GG == #{gigs})'"
-end
 
-  # Expand /opt to Gigs in size
-  #
-gigs=node[:ebs][:vg][:opt_fs_siz]
-execute "expand_/opt_to_#{gigs}G" do
-  user 'root'
-  group node[:root_group]
-  command "/usr/sbin/chfs -a size=#{gigs}G /opt"
-  only_if "lsfs | fgrep /opt | "\
-          "perl -an -e '$GG=$F[4]/(1024*1024*2); exit ($GG == #{gigs})'"
-end
-
-
-
-  # striping typically is faster. So make a striped log volume
-  #
-gigsiz = node[:ebs][:vg][:db_fs_siz].to_i  * node[:ebs][:vg][:pp_per_gig].to_i
-execute "make_logvolume_#{node[:ebs][:vg][:lv01][:lvname]}" do
-  user 'root'
-  group node[:root_group]
-  command "mklv -y#{node[:ebs][:vg][:lv01][:lvname]} -tjfs2 "\
-               "-S128K #{node[:ebs][:vg][:vgname]} "\
-               "#{gigsiz}  #{DISKS}'"
-  not_if "lsvg -l #{node[:ebs][:vg][:vgname]} | "\
-                 "fgrep #{node[:ebs][:vg][:lv01][:lvname]} > /dev/null 2>&1"
-end
-
-  ##################################################################
-  # This section creates the FS01 file system, using the stripped lv.
-  #
 FS01=node[:ebs][:vg][:db_fs_nam]
 
-execute "make_FS_#{FS01}" do
-  user 'root'
-  group node[:root_group]
-  command "/usr/sbin/crfs -v jfs2 -d#{node[:ebs][:vg][:lv01][:lvname]} "\
-                          "-m#{FS01}  #{node[:ebs][:vg][:fsopts]}"
-  not_if "lsfs | fgrep #{FS01} > /dev/null 2>&1"
-end
-
-mount "#{FS01}" do
-  device "/dev/#{node[:ebs][:vg][:lv01][:lvname]}"
-  fstype 'jfs2'
-  options 'rw'
-end
-
-
- 
-gigsiz = node[:ebs][:vg][:app_fs_siz].to_i * node[:ebs][:vg][:pp_per_gig].to_i
-execute "make_logvolume_#{node[:ebs][:vg][:lv02][:lvname]}" do
-  user 'root'
-  group node[:root_group]
-  command "mklv -y#{node[:ebs][:vg][:lv02][:lvname]} -tjfs2 "\
-               "-S128K #{node[:ebs][:vg][:vgname]} "\
-               "#{gigsiz}  #{DISKS}'"
-  not_if "lsvg -l #{node[:ebs][:vg][:vgname]} | "\
-              "fgrep #{node[:ebs][:vg][:lv02][:lvname]} > /dev/null 2>&1"
-end
-
   ##################################################################
-  # This section creates the FS02 file system, using the stripped lv.
+  # If the file system doesnt exist then create
   #
+unless system("lsfs #{FS01} > /dev/null 2>&1")
+
+    # striping typically is faster. So make a striped log volume
+    #
+  gigsiz = node[:ebs][:vg][:db_fs_siz].to_i  * node[:ebs][:vg][:pp_per_gig].to_i
+  execute "make_logvolume_#{node[:ebs][:vg][:lv01][:lvname]}" do
+    user 'root'
+    group node[:root_group]
+    command "mklv -y#{node[:ebs][:vg][:lv01][:lvname]} -tjfs2 "\
+                 "-S128K #{node[:ebs][:vg][:vgname]} "\
+                 "#{gigsiz}  #{DISKS}'"
+    not_if "lsvg -l #{node[:ebs][:vg][:vgname]} | "\
+                   "fgrep #{node[:ebs][:vg][:lv01][:lvname]} > /dev/null 2>&1"
+  end
+  
+    ##################################################################
+    # This section creates the FS01 file system, using the stripped lv.
+    #
+  
+  execute "make_FS_#{FS01}" do
+    user 'root'
+    group node[:root_group]
+    command "/usr/sbin/crfs -v jfs2 -d#{node[:ebs][:vg][:lv01][:lvname]} "\
+                            "-m#{FS01}  #{node[:ebs][:vg][:fsopts]}"
+    not_if "lsfs | fgrep #{FS01} > /dev/null 2>&1"
+  end
+  
+  mount "#{FS01}" do
+    device "/dev/#{node[:ebs][:vg][:lv01][:lvname]}"
+    fstype 'jfs2'
+    options 'rw'
+  end
+end
+
 FS02=node[:ebs][:vg][:app_fs_nam]
-execute "make_FS_#{FS02}" do
-  user 'root'
-  group node[:root_group]
-  command "/usr/sbin/crfs -v jfs2 -d#{node[:ebs][:vg][:lv02][:lvname]} "\
-               "-m#{FS02}  #{node[:ebs][:vg][:fsopts]}"
-  not_if "lsfs | fgrep #{FS02} > /dev/null 2>&1"
-end
+  ##################################################################
+  # If the file system doesnt exist then create
+  #
+unless system("lsfs #{FS02} > /dev/null 2>&1")
 
-mount "#{FS02}" do
-  device "/dev/#{node[:ebs][:vg][:lv02][:lvname]}"
-  fstype 'jfs2'
-  options 'rw'
-end
-
+  gigsiz = node[:ebs][:vg][:app_fs_siz].to_i * node[:ebs][:vg][:pp_per_gig].to_i
+  execute "make_logvolume_#{node[:ebs][:vg][:lv02][:lvname]}" do
+    user 'root'
+    group node[:root_group]
+    command "mklv -y#{node[:ebs][:vg][:lv02][:lvname]} -tjfs2 "\
+                 "-S128K #{node[:ebs][:vg][:vgname]} "\
+                 "#{gigsiz}  #{DISKS}'"
+    not_if "lsvg -l #{node[:ebs][:vg][:vgname]} | "\
+                "fgrep #{node[:ebs][:vg][:lv02][:lvname]} > /dev/null 2>&1"
+  end
+  
+  
+    ##################################################################
+    # This section creates the FS02 file system, using the stripped lv.
+    #
+  execute "make_FS_#{FS02}" do
+    user 'root'
+    group node[:root_group]
+    command "/usr/sbin/crfs -v jfs2 -d#{node[:ebs][:vg][:lv02][:lvname]} "\
+                 "-m#{FS02}  #{node[:ebs][:vg][:fsopts]}"
+    not_if "lsfs | fgrep #{FS02} > /dev/null 2>&1"
+  end
+  
+  mount "#{FS02}" do
+    device "/dev/#{node[:ebs][:vg][:lv02][:lvname]}"
+    fstype 'jfs2'
+    options 'rw'
+  end
+end  

@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:1225_upg3                *'
-log '*                                            *'
-log '**********************************************'
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:1225_upg3                *
+     *                                            *
+     **********************************************
+    '
 
 appuser     =  node[:ebs_appuser]
 appgroup    =  node[:ebs_appgroup]
@@ -26,7 +28,6 @@ dbmgroup    = node[:ebs_dbgroup]
 
 patchn=node[:ebs][:critical][:patch1]
 target=node[:ebs][:seedTable][:patchdir]
-log "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
 execute "unzip_#{patchn}" do
   user    appuser
   group   appgroup
@@ -42,9 +43,11 @@ template "#{binapp}/critical_patch.sh" do
   mode '0775'
 end
 
-  log '***************************************************'
-  log '* Applying Additional Critical Patch (10mins)     *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying Additional Critical Patch (10mins)     *
+     ***************************************************
+    '
 
 execute "post_critical_patch_#{patchn}" do
   user  'root'

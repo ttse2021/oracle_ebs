@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:kernel_chdev             *'
-log '*                                            *'
-log '**********************************************'
+log '
+     *****************************************
+     *                                       *
+     *        EBS Recipe:kerne_chdev         *
+     *                                       *
+     *****************************************
+    '
 
 
   # Typically the number of processes per user limit is small, lets increase for EBS

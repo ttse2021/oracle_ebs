@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:kernel_directory         *'
-log '*                                            *'
-log '**********************************************'
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:kernel_directory         *
+     *                                            *
+     **********************************************
+    '
 
 
 directory "Create_the_database_directory_#{node[:ebs][:vg][:db_fs_nam]}" do

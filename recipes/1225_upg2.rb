@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:1225_upg2                *'
-log '*                                            *'
-log '**********************************************'
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:1225_upg2                *
+     *                                            *
+     **********************************************
+    '
 
 appuser     =  node[:ebs_appuser]
 appgroup    =  node[:ebs_appgroup]
@@ -22,7 +24,6 @@ patchtop    =  node[:ebs][:seedTable][:patchdir]
 
 patchn=node[:ebs][:post1225][:patch1]
 target= node[:ebs][:seedTable][:patchdir]
-log "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
 execute "unzip_#{patchn}" do
   user    appuser
   group   appgroup
@@ -38,9 +39,11 @@ template "#{binapp}/post_1225_hpatch.sh" do
   mode '0775'
 end
 
-  log '***************************************************'
-  log '* Applying 12.2.5 patch   takes 15 minutes        *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying 12.2.5 patch   takes 15 minutes        *
+     ***************************************************
+    '
 
 patch=node[:ebs][:post1225][:patch1]
 execute "post_1225_patch_#{patch}" do

@@ -1,8 +1,11 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:1225_upg1                *'
-log '*                                            *'
-log '**********************************************'
+
+log '
+     **********************************************
+     *                                            *
+     *        EBS Recipe:1225_upg1                *
+     *                                            *
+     **********************************************
+   '
 
 appuser     =  node[:ebs_appuser]
 appgroup    =  node[:ebs_appgroup]
@@ -62,7 +65,6 @@ end
   # unpack the 12.2.5 patch
   #
 patchn=node[:ebs][:patch1225]
-log "#{binapp}/getpatch.sh -p #{patchn} -t #{patchtop}\n"
 execute "unzip_#{patchn}" do
   user    appuser
   group   appgroup
@@ -71,13 +73,15 @@ execute "unzip_#{patchn}" do
   not_if { File.directory?( "#{patchtop}/#{patchn}" ) }
 end
 
-  log '***************************************************'
-  log '* Applying 12.2.5 patch   Takes over 4 hours      *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying 12.2.5 patch   Takes over 4-12 hours   *
+     ***************************************************
+    '
 
 execute "apply_1225_patch_now" do
   user  'root'
-  timeout 36000
+  timeout 86400 #24 hours
   command "su - #{appuser} -c "\
           "'#{binapp}/1225_patch.sh > #{outapp}/out.1225_patch 2>&1 && "\
           "touch #{outapp}/t.1225_patch'"
@@ -96,9 +100,11 @@ execute "start_the_app_server_after_1225patch" do
   command "#{binapp}/startapp.sh"
 end
 
-  log '***************************************************'
-  log '* Applying 12.2.5 cleanup takes 10 minutes        *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying 12.2.5 cleanup takes 10 minutes        *
+     ***************************************************
+    '
 
 template "#{binapp}/1225_cleanup.sh" do
   source '1225_cleanup.sh.erb'
@@ -129,9 +135,11 @@ template "#{binapp}/1225_clone.sh" do
   mode '0775'
 end
 
-  log '***************************************************'
-  log '* Applying 12.2.5 clone   takes 90 minutes        *'
-  log '***************************************************'
+log '
+     ***************************************************
+     * Applying 12.2.5 clone   takes 90 minutes        *
+     ***************************************************
+    '
 
 execute "apply_1225_clone" do
   user  'root'

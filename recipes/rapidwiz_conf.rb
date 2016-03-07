@@ -1,8 +1,10 @@
-log '**********************************************'
-log '*                                            *'
-log '*        EBS Recipe:rapidwiz_conf            *'
-log '*                                            *'
-log '**********************************************'
+log '
+     ********************************************
+     *                                          *
+     *        EBS Recipe:rapidwiz_conf          *
+     *                                          *
+     ********************************************
+    '
 
 
   ## we need to modify the conf file for the all in one, such that

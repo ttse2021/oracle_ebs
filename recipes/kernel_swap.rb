@@ -1,16 +1,18 @@
-log '**********************************************************************'
-log '*                                                                    *'
-log '*                 Recipe:kernel_swap                                 *'
-log '*                                                                    *'
-log '* This recipe is conditional. You many not want to add swap of the   *'
-log '* orcle recommended swap size (which is 1/2 the memory size).        *'
-log '*                                                                    *'
-log '* By default, we enforce a fixed size swap requirement. However,     *'
-log '* if you wish to ignore this requirement, modify the attribute:      *'
-log '*                                                                    *'
-log '*     default[:ebs[]:vg][:ignore_swap_check] = true                  *'
-log '*                                                                    *'
-log '**********************************************************************'
+log '
+     **********************************************************************
+     *                                                                    * 
+     *                 Recipe:kernel_swap                                 * 
+     *                                                                    * 
+     * This recipe is conditional. You many not want to add swap of the   * 
+     * orcle recommended swap size (which is 1/2 the memory size).        * 
+     *                                                                    * 
+     * By default, we enforce a fixed size swap requirement. However,     * 
+     * if you wish to ignore this requirement, modify the attribute:      * 
+     *                                                                    * 
+     *     default[:ebs[]:vg][:ignore_swap_check] = true                  * 
+     *                                                                    * 
+     ********************************************************************** 
+    '
 
 
 
