@@ -49,7 +49,7 @@ execute "create_vnc_passwd_file_root" do
   user 'root'
   group node[:root_group]
   command "ksh #{node[:ebs][:db][:bin]}/vnc_root.sh > #{node[:ebs][:db][:outdir]}/out.vnc_root 2>&1"
-  creates                                             "#{node[:ebs][:db][:outdir]}/out.vnc_root"
+  creates                                            "#{node[:ebs][:db][:outdir]}/out.vnc_root"
 end
 
 userr='root'
@@ -57,13 +57,13 @@ execute "make_vnc_session10_for_root" do
   user userr
   group node[:root_group]
   command "su - #{userr} -c '/usr/bin/X11/vncserver :10'"
-  #command "env > /tmp/env.chef; /usr/bin/X11/vncserver :10"
-  #MAYBE  command "ssh "#{node[:ebs_dbuser]}@#{node[:hostname]} 'vncserver :10'"
   not_if  "ps -aef | fgrep #{userr} | fgrep -v fgrep | fgrep 'Xvnc :10'"
 end
 
-execute "wait_3_seconds" do
-  command "sleep 3"
+return 
+
+execute "wait_some_seconds" do
+  command "sleep 15"
 end
 
   # just before starting. lets cleanup with slibclean
@@ -73,6 +73,8 @@ execute "time_to_slibclean_prior_rapidwiz" do
   group node[:root_group]
   command "/usr/sbin/slibclean"
 end
+
+
 
   # this list is tested by rapidwiz install. Todo, have these tested before rapidwiz...
   #

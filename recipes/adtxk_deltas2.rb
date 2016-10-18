@@ -22,6 +22,7 @@ oraInventory   =    node[:ebs][:db][:oraInv]
 ora_base       =    node[:ebs][:db][:orabase]
 db_fs          =    node[:ebs][:vg][:db_fs_nam]
 app_fs         =    node[:ebs][:vg][:app_fs_nam]
+target         =    node[:ebs][:seedTable][:patchdir]
 
   #-----------------------------------------#
   # Doc_ID_1617461.1_Section3.1.2 Step4     #
@@ -45,28 +46,26 @@ end
   # Doc_ID_1617461.1_Section3.1.2 step4               #
   #    Unzip AD patch1 as its adgrants needs grabbing #
   #---------------------------------------------------#
-patchn=node[:ebs][:ad_patches][:patch1]
-target= node[:ebs][:seedTable][:patchdir]
-execute "unzip_#{patchn}" do
+patch1=node[:ebs][:ad_patches][:patch1]
+execute "unzip_#{patch1}" do
   user    appuser
   group   appgroup
   cwd     node[:ebs][:stage][:zips]
-  command "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
-  not_if { File.directory?( "#{target}/#{patchn}" ) }
+  command "#{binapp}/getpatch.sh -p #{patch1} -t #{target}\n"
+  not_if { File.directory?( "#{target}/#{patch1}" ) }
 end
 
   #-----------------------------------------#
   # Doc_ID_1617461.1_Section3.1.2 step4     #
   #    Unzip AD patches                     #
   #-----------------------------------------#
-patchn=node[:ebs][:ad_patches][:patch2]
-target= node[:ebs][:seedTable][:patchdir]
-execute "unzip_#{patchn}" do
+patch2=node[:ebs][:ad_patches][:patch2]
+execute "unzip_#{patch2}" do
   user    appuser
   group   appgroup
   cwd     node[:ebs][:stage][:zips]
-  command "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
-  not_if { File.directory?( "#{target}/#{patchn}" ) }
+  command "#{binapp}/getpatch.sh -p #{patch2} -t #{target}\n"
+  not_if { File.directory?( "#{target}/#{patch2}" ) }
 end
 
 #patch2 needed for this script
@@ -111,12 +110,11 @@ log '
      ***************************************************
     '
 
-patchn=node[:ebs][:ad_patches][:patch1]
-log "su - #{appuser} -c  #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -p #{patchn} -x'"
-execute "adopHpatch_#{patchn}" do
+log "su - #{appuser} -c  #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -p #{patch1} -x'"
+execute "adopHpatch_#{patch1}" do
    user  'root'
    command "su - #{appuser} -c "\
-           "'#{binapp}/adopHpatch.sh -p #{patchn} -x && "\
+           "'#{binapp}/adopHpatch.sh -p #{patch1} -x && "\
           "touch #{outapp}/t.ad1patch'"
   creates       "#{outapp}/t.ad1patch"
 end
@@ -128,12 +126,11 @@ log '
     '
 
      # no -x option for this one.
-log "su - #{appuser} -c  #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -p #{patchn}'"
-patchn=node[:ebs][:ad_patches][:patch2]
-execute "adopHpatch_#{patchn}" do
+log "su - #{appuser} -c  #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -p #{patch2}'"
+execute "adopHpatch_#{patch2}" do
    user  'root'
    command "su - #{appuser} -c "\
-           "'#{binapp}/adopHpatch.sh -p #{patchn} && "\
+           "'#{binapp}/adopHpatch.sh -p #{patch2} && "\
           "touch #{outapp}/t.ad2patch'"
   creates       "#{outapp}/t.ad2patch"
 end
@@ -149,15 +146,14 @@ end
   # Doc_ID_1617461.1_Section3.1.2 step4     #
   #    Unzip TXK patches                    #
   #-----------------------------------------#
-target= node[:ebs][:seedTable][:patchdir]
-node[:ebs][:txk_patches][:patchlst].each do |patchn|
-  log "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
-  execute "unzip_#{patchn}" do
+node[:ebs][:txk_patches][:patchlst].each do |tmppatch|
+  log "#{binapp}/getpatch.sh -p #{tmppatch} -t #{target}\n"
+  execute "unzip_#{tmppatch}" do
     user    appuser
     group   appgroup
     cwd     node[:ebs][:stage][:zips]
-    command "#{binapp}/getpatch.sh -p #{patchn} -t #{target}\n"
-    not_if { File.directory?( "#{target}/#{patchn}" ) }
+    command "#{binapp}/getpatch.sh -p #{tmppatch} -t #{target}\n"
+    not_if { File.directory?( "#{target}/#{tmppatch}" ) }
   end
 end
 

@@ -1,4 +1,5 @@
-#Sat Dec 19 22:34:58 PST 2015
+#Wed Oct  5 12:06:27 PDT 2016
+
      #***********************************************#
      #**                                          ***#
      #**          Root Owner Attributes           ***#
@@ -21,8 +22,8 @@ default[:ebs][:vg][:hdisk][:max_transfer] = '0x100000'
 default[:ebs][:vg][:ppsiz]        = 128
 default[:ebs][:vg][:pp_per_gig]   = 1024/node[:ebs][:vg][:ppsiz]
 default[:ebs][:vg][:vgname]       = 'ebsvg01'
-default[:ebs][:vg][:db_fs_siz]             = '398' # in GIGS
-default[:ebs][:vg][:app_fs_siz]            = '198' # in GIGS
+default[:ebs][:vg][:db_fs_siz]    = '220' # in GIGS
+default[:ebs][:vg][:app_fs_siz]   = '120' # in GIGS
 
 #-------------------------------------------------------
 # Logical Volumes
@@ -62,17 +63,22 @@ default[:ebs][:vg][:sashosts]             = [ 'p135n55' ]
 #
 default[:ebs][:vg][:drives]['p135n51']    = [ 'hdisk1', 'hdisk2', 'hdisk3' ]
 default[:ebs][:vg][:drives]['p135n52']    = [ 'hdisk1', 'hdisk2', 'hdisk3' ]
-default[:ebs][:vg][:drives]['p135n53']    = [ 'hdisk0', 'hdisk1', 'hdisk2' ]
 default[:ebs][:vg][:drives]['p135n55']    = [ 'hdisk1', 'hdisk2' ]
+default[:ebs][:vg][:drives]['p212n170.pbm.ihost.com']    = [ 'hdisk1', 'hdisk2' ]
   
 #---------------------------------------------------
-# Swap space requirements with ability to ignore.
+# Swap/paging space requirements with ability to ignore.
 # if :swapspace_ignore is set to true
 #---------------------------------------------------
 #
 default[:ebs][:vg][:swapspace_ignore]  = false
 default[:ebs][:vg][:swapspace]         = 16384      # in Megabytes
 
+#---------------------------------------------------
+# Total memory requirements 
+#---------------------------------------------------
+#
+default[:ebs][:vg][:minimum_memory]         = 16384      # in Megabytes
 
 #----------------------------------------
 # kernel attributes that will be changed
@@ -81,24 +87,44 @@ default[:ebs][:vg][:swapspace]         = 16384      # in Megabytes
 default[:ebs][:ncargs]   = 1024
 default[:ebs][:maxuproc] = 16384
 
+
+
+#------------------------------------
+#Doc ID: 1330703.1 requires the following:
+#    bos.adt.base
+#    bos.adt.lib
+#    bos.adt.libm
+#    bos.perf.libperfstat
+#    bos.perf.perfstat
+#    bos.perf.proctools
+#    rsct.basic.rte
+#    rsct.compat.clients.rte
+#    X11.motif.lib
+
 #------------------------------------
 # Kernel required filesets
 #------------------------------------
+# Note: IF YOU ADD HERE. UPDATE THE PRECHECK SCRIPTS!
 #
 default[:ebs][:chk_filesets] = [
-   'bos.adt.base',
+   'bos.adt.base',         # /usr/bin/make
    'bos.adt.lib',
    'bos.adt.libm',
-   'bos.loc.com.utf',
-   'bos.loc.utf.EN_US',
+   'bos.loc.com.utf',      #chef needs THESE are en_US.UTF-8 
+   'bos.loc.utf.EN_US',    #chef needs THESE ARE en_US.UTF-8 
    'bos.perf.libperfstat',
    'bos.perf.perfstat',
    'bos.perf.proctools',
-   'openssh.base.server' ,
+   'openssh.base.server',  #chef needs
    'rsct.basic.rte',
    'rsct.compat.clients.rte',
    'X11.motif.lib',
+   'expect.base',          #cookbook needs
+   'bos.rte.security',     #/usr/bin/chpasswd
+   'bos.rte.bind_cmds',    #/usr/bin/ar, /usr/bin/ld
+   'vacpp.cmp.tools',      #/usr/vacpp/bin/linkxlC
   ]
+
 
 #---------------------------------------------------
 # Miscellaneous Attributes.
@@ -113,6 +139,7 @@ default[:ebs][:vncpw]   = 'vncpassword'
 #------------------------------------
 # Location of commands
 #------------------------------------
+# Note: IF YOU ADD HERE. UPDATE THE PRECHECK SCRIPTS!
 #
 default[:ebs][:cmd][:compiler]     = '/usr/vacpp/bin'
 default[:ebs][:linux][:tools]      = [ 'unzip','vnc' ] 
@@ -185,13 +212,13 @@ default[:ebs][:dbm_patchdir]               = "#{node[:ebs][:vg][:db_fs_nam]}/Pat
 
 
 default[:ebs][:stage][:is_nfsmount]        = false
-default[:ebs][:stage][:nfsmount]           = '/ebstage'
-default[:ebs][:stage][:dir]                = "#{node[:ebs][:stage][:nfsmount]}/stage"
+default[:ebs][:stage][:fsmount]           = '/ebstage'
+default[:ebs][:stage][:dir]                = "#{node[:ebs][:stage][:fsmount]}/stage"
 default[:ebs][:stage][:rapiddir]           = "#{node[:ebs][:stage][:dir]}/startCD/Disk1/rapidwiz"
 default[:ebs][:stage][:nfshost]            = 'p134n31'
 #default[:ebs][:stage][:patches]            = "#{node[:ebs][:stage][:dir]}/Patches"
-default[:ebs][:stage][:zips]               = "#{node[:ebs][:stage][:nfsmount]}/zips"
-default[:ebs][:stage][:bin_11204]          = "#{node[:ebs][:stage][:nfsmount]}/DBMS/11.2.0.4_base"
+default[:ebs][:stage][:zips]               = "#{node[:ebs][:stage][:fsmount]}/zips"
+default[:ebs][:stage][:bin_11204]          = "#{node[:ebs][:stage][:fsmount]}/DBMS/11.2.0.4_base"
 
 #default[:ebs][:stage][:opatch_11204]       = "#{node[:ebs][:stage][:patches]}/"\
 #                                             "opatch/p6880880_112000_AIX64-5L.zip"
@@ -251,6 +278,7 @@ default[:ebs][:db][:outdir]           = "#{node[:ebs][:vg][:db_fs_nam]}/log"
 default[:ebs][:db][:DBENVF]           = "#{node[:ebs][:db][:bin]}/1124.env"
 default[:ebs][:syspw]                 = 'manager' #dbms SYSTEM/manager Oracle password
 default[:ebs][:sid_hname]             =  "#{node[:ebs][:db][:sid]}_#{node[:hostname]}"
+default[:ebs][:apps_sid_hname]        =  "APPS#{node[:ebs][:db][:sid]}_#{node[:hostname]}"
 
 
 default[:ebs][:db][:env_11203] = {
@@ -287,9 +315,6 @@ default[:ebs][:db][:env_11203] = {
           'LANGUAGE'     => 'en_US',
           'LC_ALL'       => 'en_US',
             'ORA_NLS10'  => "#{node[:ebs][:db][:orahome3]}/nls/data/9idata",
-            'PERL5LIB'   => "#{node[:ebs][:db][:orahome3]}/perl/lib:"\
-                            "#{node[:ebs][:db][:orahome3]}/perl/lib/5.10.0:"\
-                            "#{node[:ebs][:db][:orahome3]}/perl/lib/site_perl/5.10.0",
             'TNS_ADMIN'  => "#{node[:ebs][:db][:orahome3]}/network/admin/"\
                             "#{node[:ebs][:db][:sid]}_#{node[:hostname]}",
           'SKIP_ROOTPRE' => 'TRUE',
@@ -329,9 +354,6 @@ default[:ebs][:db][:env_11204] = {
           'LANGUAGE'     => 'en_US',
           'LC_ALL'       => 'en_US',
             'ORA_NLS10'  => "#{node[:ebs][:db][:orahome4]}/nls/data/9idata",
-            'PERL5LIB'   => "#{node[:ebs][:db][:orahome4]}/perl/lib:"\
-                            "#{node[:ebs][:db][:orahome4]}/perl/lib/5.10.0:"\
-                            "#{node[:ebs][:db][:orahome4]}/perl/lib/site_perl/5.10.0",
             'TNS_ADMIN'  => "#{node[:ebs][:db][:orahome4]}/network/admin/"\
                             "#{node[:ebs][:db][:sid]}_#{node[:hostname]}",
           'SKIP_ROOTPRE' => 'TRUE',
@@ -447,16 +469,15 @@ default[:ebs][:rapidwiz][:cmd]        = "#{node[:ebs][:stage][:rapiddir]}/rapidw
 #      . /applmgr/fs1/EBSapps/appl/APPSVIS_p135n53.env
 default[:ebs][:app][:runbase]   = "#{node[:ebs][:vg][:app_fs_nam]}/fs1/EBSapps"
 default[:ebs][:app][:runhome]   = "#{node[:ebs][:app][:runbase]}/10.1.2"
-default[:ebs][:app][:runenv]    = "#{node[:ebs][:app][:runbase]}/appl/APPS"\
-                                  "#{node[:ebs][:db][:sid]}_#{node[:hostname]}.env"
+default[:ebs][:app][:runenv]    = "#{node[:ebs][:app][:runbase]}/appl/#{node[:ebs][:apps_sid_hname]}.env"
 default[:ebs][:app][:contxtfs1] = "#{node[:ebs][:vg][:app_fs_nam]}/fs1/inst/apps/"\
                                   "#{node[:ebs][:db][:sid]}_#{node[:hostname]}/"\
 				  "appl/admin/#{node[:ebs][:db][:sid]}_#{node[:hostname]}.xml"
 
 default[:ebs][:app][:FS1ENVF]   = "#{node[:ebs][:vg][:app_fs_nam]}/"\
-                                  "fs1/EBSapps/appl/APPS#{node[:ebs][:sid_hname]}.env"
+                                  "fs1/EBSapps/appl/#{node[:ebs][:apps_sid_hname]}.env"
 default[:ebs][:app][:FS2ENVF]   = "#{node[:ebs][:vg][:app_fs_nam]}/"\
-                                  "fs2/EBSapps/appl/APPS#{node[:ebs][:sid_hname]}.env"
+                                  "fs2/EBSapps/appl/#{node[:ebs][:apps_sid_hname]}.env"
 
 default[:ebs][:app][:patchbase] = "#{node[:ebs][:vg][:app_fs_nam]}/fs2/EBSapps"
 default[:ebs][:app][:patchhome] = "#{node[:ebs][:app][:patchbase]}/10.1.2"
@@ -496,7 +517,6 @@ default[:ebs][:seedTable][:adop_cmd] = "#{node[:ebs][:app][:ne_base]}/appl/ad/bi
 #----------------------------------
 #
 default[:ebs][:forms][:opatchn]        = 'p6880880_101000'
-#default[:ebs][:forms][:patchsrc]       = "#{node[:ebs][:stage][:patches]}/forms"
 default[:ebs][:forms][:patches]        = [ '21103001' ]
 
 #-----------------------------------------

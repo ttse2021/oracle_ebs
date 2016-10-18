@@ -1,0 +1,61 @@
+-------------------------------------
+V005 Sat Sep 24 09:42:33 PDT 2016
+CHANGED:
+-- Updated documentation.
+-- Changed disk space requirement /d01     400->225GB
+-- Changed disk space requirement /applmgr 200->125GB
+-- Added check for vacmp linkxlC required utility
+-- Upgraded chef-client to version 12.14.89.
+-- Broke fs_growfs into fs_volgrp and fs_filsys
+-- Added root_profile.rb for consistent environment
+-- Rewrote reboot.rb to remove usage of reboot command
+-- Tested with aix 1.0.0 version.
+-- Prohibit staging dir from being nfs mounted
+
+V004:
+-- Added check for expect tool.
+-- Added comments on which filesets needed
+-- Added check to see if file system has avaiable disk space.
+-- Added check for minimum memory required to run.
+-- Changed required memory to 225, and 125BG per file system
+-- Added minimum memory test of 16Gb
+-- Added adbldxml.exp and removed adbldxml.sh
+-- Removed check for prereqs. it hasnt caught anything.
+-- Solve the chk_etchosts file problem.
+-- Add file system creation without striping.
+-- fixed .hist_tty: 0551-011 
+
+
+-------------------------------------
+V003 Sat Mar  5 18:15:20 PST 2016
+COMMITTED
+  attributes/default.rb:
+    Added bos.loc.com.utf, bos.loc.utf.EN_US, resorted
+  files/host:
+    Removed files/hosts.
+  recipes/kernel_etchost 
+    Instead added line and check for correct machine.s:
+  recipes/1225_upg1.rb:
+    changed to 4-12 hours: log '* Applying 12.2.5 patch   Takes over 4-12 hours   *'
+    timeout 86400 # 24 hours
+  Re-organized fs_creation to  bracket is_nfsmounted option
+  Added recipes/fs_grow.rb
+  templates/default/adbldxml.sh.erb
+    > # sometimes it needs a the display set.
+    > export DISPLAY="<%= node[:hostname] %>:10.1"
+  Fixed syntax error in vcn_session-server.rb
+
+-------------------------------------
+V002 Thu Feb 25 22:19:45 PST 2016 jubal
+COMMITTED
+  Added is_nfsmounted variable. default false.
+  Modified fs_creation.rb to change /opt and /tmp to >= from ==
+  Added conditional around kernel_nfsmount, added check to see
+  if rapiddir is there to validate stage directory.
+-------------------------------------
+Todo:
+* Reboot really should be smarter. like check if iocp and ncargs have changed.
+* At the end of a succesul installation save the log files to teh workstation invoker.
+* put all source for the cookbooks under the /repos/CHEF. (oracle 12c, EBS12.2.5 stage)
+
+

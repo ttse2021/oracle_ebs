@@ -7,17 +7,17 @@ log '
     '
 
 
-mygrp = node[:ebs][:db][:usr][:pgrp] # Get db primary user group
-group "Set_group_#{mygrp}_for_db_user" do
+dbgrp = node[:ebs][:db][:usr][:pgrp] # Get db primary user group
+group "Set_group_#{dbgrp}_for_db_user" do
   action :create
-  group_name mygrp
+  group_name dbgrp
   gid  node[:ebs][:db][:usr][:pgid]
 end
 
-mygrp = node[:ebs][:app][:usr][:pgrp] # Get app primary user group
-group "Set_group_#{mygrp}_for_appuser" do
+appgrp = node[:ebs][:app][:usr][:pgrp] # Get app primary user group
+group "Set_group_#{appgrp}_for_appuser" do
   action :create
-  group_name mygrp
+  group_name appgrp
   gid  node[:ebs][:app][:usr][:pgid]
 end
 

@@ -20,8 +20,9 @@ sid          = node[:ebs][:db][:sid]
 hname        = node[:hostname]
 bindb        = node[:ebs][:db][:bin]
 tmpstage     = node[:ebs][:stage][:dir]
-app_home      = node[:ebs][:app][:runbase]
-userAPPS      = node[:ebs][:appsuser]
+app_home     = node[:ebs][:app][:runbase]
+userAPPS     = node[:ebs][:appsuser]
+mysid        = node[:ebs][:db][:sid]
 apppw        = node[:ebs][:appspw]
 syspw        = node[:ebs][:syspw]
 appuser      = node[:ebs_appuser]
@@ -36,10 +37,11 @@ outapp       = node[:ebs][:app][:outdir]
 ENVFS1       = node[:ebs][:app][:FS1ENVF]
 ENVFS2       = node[:ebs][:app][:FS2ENVF]
 ENVDB        = node[:ebs][:db][:DBENVF]
+display      = node[:ebs][:rapidwiz][:display]
 contxtdb     = "#{node[:ebs][:db][:orahome4]}/appsutil/#{node[:ebs][:sid_hname]}.xml"
 
-template "#{bindb}/adbldxml.sh" do
-  source "adbldxml.sh.erb"
+template "#{bindb}/adbldxml.exp" do
+  source "adbldxml.exp.erb"
   owner dbowner
   group dbgroup
   mode '0755'
@@ -57,20 +59,19 @@ execute "Save_original_xml_context_file" do
   not_if { File.file?( "#{contxtdb}.orig" ) }
 end
 
-shellf='adbldxml.sh'
-cmd="#{bindb}/#{shellf}"
-outfile="#{outdb}/out.db.#{shellf}"
-contxt=contxtdb
+execf='adbldxml.exp'
+cmd="#{bindb}/#{execf}"
+outfile="#{outdb}/out.db.#{execf}"
 execute "generate_new_#{sid}_#{hname}.xml" do
   user          dbowner
   group         dbgroup
   environment ( dbenv )
   command <<-EOF
-echo "Running adbldxml.sh on DBMS"
+echo "Running adbldxml.exp on DBMS"
 .    #{ENVDB} 
  echo ${CHEF_ENV?} | fgrep "11204" > /dev/null 2>&1
  if  [ $? != 0 ] ; then echo "Cannot source $ENVDB. Aborting..."; exit 255; fi
- #{bindb}/adbldxml.sh -e db > #{outfile}
+ #{cmd} #{apppw} #{mysid} '#{display}' > #{outfile}
 EOF
 end
 

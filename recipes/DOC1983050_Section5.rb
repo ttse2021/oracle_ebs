@@ -78,9 +78,10 @@ log "su - #{appuser} -c #{appuser}@#{node[:hostname]} '#{binapp}/adopHpatch.sh -
 execute "adopHpatch_#{patchn}" do
    user  'root'
    command "su - #{appuser} -c "\
-           "'#{binapp}/adopHpatch.sh -p #{patchn} -x && "\
+           "'#{binapp}/adopHpatch.sh -p #{patchn} -x > #{outapp}/outh.#{patchn} 2>&1 && "\
           "touch #{outapp}/t.seedpatch'"
-  creates       "#{outapp}/t.seedpatch"
+   creates      "#{outapp}/t.seedpatch"
+   timeout 50400
 end
   
 execute "#{binapp}/stopwls.sh" do

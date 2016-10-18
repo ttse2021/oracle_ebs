@@ -1,0 +1,42 @@
+#!/usr/bin/expect
+set appspw  [lindex $argv 0]
+set svcname [lindex $argv 1]
+set dispvar [lindex $argv 2]
+#exp_internal
+
+if {[llength $argv] == 0} {
+  send_user "Usage: adbldxml_expect APPS_PW service_name display_variable\n"
+  exit 1
+}
+
+send_user "\n#####\n# $appspw $svcname $dispvar \n#####\n"
+
+spawn "/d01/oracle/VIS/11.2.0.4/appsutil/bin/adbldxml.pl"
+
+set timeout 10
+expect {
+  timeout { send_user "\nFailed to get APPS password prompt\n"; exit 1 }
+  eof     { send_user "\nadbldxml.pl failed\n"; exit 1 }
+  "APPS Password:"
+}
+send "$appspw\r"
+
+set timeout 120
+expect {
+  timeout { send_user "\nAPPS Login failed or timeout or password incorrect. Timeout is: $timeout secs\n"; exit 1}
+  "Enter Database Service Name:"
+}
+send "VIS\r"
+
+set timeout 10
+expect {
+  timeout { send_user "\nDatabase Service Name issue . Service Name incorrect.\n"; exit 1}
+  "Enter the value for Display Variable:"
+}
+send "icc-233:10.1\r"
+
+expect {
+  timeout { send_user "\nDisplay Variable issue.\n"; exit 1}
+  "The context file has been created at:"
+}
+expect eof

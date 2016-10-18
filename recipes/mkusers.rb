@@ -5,8 +5,11 @@ log '
      *                                     *
      ***************************************
     '
+# local vars
+#
+logdb   = node[:ebs][:db][:outdir]
 
-directory node[:ebs][:db][:outdir] do
+directory logdb do
   mode '0777'
   action :create
 end
@@ -19,11 +22,11 @@ tmp_pw = node[:ebs][:db][:usr][:passwd]
 myhome = node[:ebs][:db][:usr][:homedir]
 
 user tuser  do
-  uid   node[:ebs][:db][:usr][:uid]
-  gid   node[:ebs][:db][:usr][:pgid] 
-  shell node[:ebs][:cmd][:shell]
-  home myhome
-  supports :manage_home => true
+  uid         node[:ebs][:db][:usr][:uid]
+  gid         node[:ebs][:db][:usr][:pgid] 
+  shell       node[:ebs][:cmd][:shell]
+  home        myhome
+  manage_home true
 end
 
 execute "change_passw_for_#{tuser}" do
@@ -83,11 +86,11 @@ tmp_pw = node[:ebs][:app][:usr][:passwd]
 myhome = node[:ebs][:app][:usr][:homedir]
 
 user tuser  do
-  uid node[:ebs][:app][:usr][:uid]
-  gid node[:ebs][:app][:usr][:pgid] 
-  shell node[:ebs][:cmd][:shell]
-  home myhome
-  supports :manage_home => true
+  uid         node[:ebs][:app][:usr][:uid]
+  gid         node[:ebs][:app][:usr][:pgid] 
+  shell       node[:ebs][:cmd][:shell]
+  home        myhome
+  manage_home true
 end
 
   #Lets do this one time only. So use output files to identify if successful
@@ -167,18 +170,3 @@ group 'add_root_to_dba' do
     members  'root'
     append true
 end
-
-  #make the filesystem owned by dbuser. now that the user exists.
-  #
-myusr=node[:ebs][:db][:usr][:name]
-mygrp=node[:ebs][:db][:usr][:pgrp]
-myfs =node[:ebs][:vg][:db_fs_nam]
-execute "change_ownership of_#{$myfs}" do
-  user 'root'
-  group node[:root_group]
-  command "chown -R #{myusr}:#{mygrp} #{myfs} && "\
-               "touch #{node[:ebs][:db][:outdir]}/t.setowner_on_db_fs_nam"
-  creates            "#{node[:ebs][:db][:outdir]}/t.setowner_on_db_fs_nam"
-end
-
-

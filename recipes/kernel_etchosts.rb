@@ -1,5 +1,4 @@
-log '
-     **********************************************
+log '**********************************************
      *                                            *
      *        EBS Recipe:kernel_etchosts          *
      *                                            *
@@ -7,47 +6,22 @@ log '
     '
 
 # get the machine host, ipaddress and fully qualified domain name fqdn
-myaddr=node['ipaddress']
-myhost=node['hostname']
-mydomain=`namerslv -s -n | awk '{ print $2 }'`
-mydomain.chomp!
 
-myfqdn="#{myhost}.#{mydomain}"
-hostline="#{myaddr}     #{myfqdn} #{myhost}"
+bindb          =    node[:ebs][:db][:bin]
+outdb          =    node[:ebs][:db][:outdir]
 
-log "hostline: #{hostline}"
-
-execute "is_addr_blank" do
-  command "exit -1"
-  only_if { ( "#{myaddr}" == '' ) }
+cookbook_file "#{bindb}/chk_hosts.pl" do
+  owner node[:ebs_dbuser]
+  group node[:ebs_dbgroup]
+  mode '0755'
+  source 'chk_hosts.pl'
 end
 
-execute "is_fqdn_blank" do
-  command "exit -1"
-  only_if { ( "#{myfqdn}" == '' ) }
+execute "Check_that_etc_hosts_is_valid" do
+  user  'root'
+  group node[:root_group]
+  command "perl #{bindb}/chk_hosts.pl > #{outdb}/out.chk_hosts 2>&1 && "\
+                "touch #{outdb}/t.chk_hosts"
+   creates            "#{outdb}/t.chk_hosts"
 end
 
-execute "is_host_blank" do
-  command "exit -1"
-  only_if { ( "#{myhost}" == '' ) }
-end
-
-# make sure that all three are on the same line. How?
-# by getting the line from the /etc/hosts using each field
-#
-getline1=`fgrep #{myaddr} /etc/hosts`
-getline2=`fgrep #{myfqdn} /etc/hosts`
-getline3=`fgrep #{myhost} /etc/hosts`
-
-# if we're getting multiple lines for this one line. we have issues. Flag.
-#
-raise "Multiple Hostlines for this machine in /etc/hosts. Please fix" if ( getline1!=getline2)
-raise "Multiple Hostlines for this machine in /etc/hosts. Please fix" if ( getline1!=getline3)
-
-#Ok Is it in the /etc/hosts file? if not, add it.
-#
-execute "make_sure_etchosts_file_has_machine_entry" do
-  user 'root'
-  command "echo '#{hostline}' >> /etc/hosts"
-  only_if { ( "#{getline1}" == '') }
-end#

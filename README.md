@@ -13,9 +13,14 @@ Installs and configures Oracle E-Business Suite Version 12.2.5:
   * Installs required patches to Oracle EBS components,
   * Updates EBS to version 12.2.5, and installs 12.2.5 patches,
 
-Current Version: v0.0.3
+Current Version: 0.0.5
 
 Dependency: AIX 0.1.0
+
+NOTE: The included html file, Docs/EBS 12.2.5_COOKBOOK.mht, is 
+required reading for more information on the oracle_ebs cookbook. 
+It contains alot more detail, included disk space requirements 
+and required file systems.
 
 oracle_ebs COOKBOOK Limitations:
   * Does not support Oracle Database RAC option.
@@ -48,30 +53,30 @@ Quickstart (EBS)
 
   ebsrole.rb (Role file)
   ----------------------------------------------------------------------
-  Name "ebs51"
-  Description "Role applied to Oracle E-Business Suite on AIX 7.1."
-  run_list 'recipe[ebs]'
+  name 'p134n55'
+  description 'Role applied to Oracle EBS.'
   
-  override_attributes :ebs_appuser   => 'applmgr',
-     :ebs_dbuser                     => 'oraprod',
-     :ebs_groupid                    => '1000',
-     :ebs_group                      => 'oinstall',
-   :ebs => {
-     :app   =>  { :usr => { :uid     => 2000 } },
-     :db    =>  { :usr => { :uid     => 3000 } },
-     :stage =>  { :nfshost           => '<nfshostname>',
-                  :nfsmount          => '/ebstage'},
-                  :is_nfsmount       => true,
-     :vg    =>  { :app_fs_nam        => '/applmgr',
-                  :app_fs_siz        => 198, # GB
-                  :db_fs_nam         => '/d01',
-                  :db_fs_siz         => 398, # GB
-                  :sashosts          => [ 'TARGETNODE' ],
-                  :swapspace         => 16384,
-                  :vgname            => 'ebsvg01',
-                  :drives            => { 'TARGETNODE' => [ 'hdiskX','hdiskY',
-                                                             'hdiskZ' ] },
-               },
+  run_list 'recipe[oracle_ebs]'
+  
+  override_attributes :ebs_appuser     => 'applmgr',
+     :ebs_dbuser                       => 'oraprod',
+     :ebs_groupid                      => 1000,
+     :ebs_group                        => 'oinstall',
+     :ebs => {
+       :app   =>  { :usr => { :uid     => 2000 } },
+       :db    =>  { :usr => { :uid     => 3000 } },
+       :vg    =>  { :app_fs_nam        => '/applmgr',
+                    :app_fs_siz        => 122,
+                    :db_fs_nam         => '/d01',
+                    :db_fs_siz         => 223,
+                    :pp_siz            => 128,
+                    :sashosts          => [ 'p134n55' ],
+                    :ssdhosts          => [ ],
+                    :swapspace         => 16384,
+                    :vgname            => 'ebsvg01',
+                    :drives            => { 'p134n55' => [ 'hdisk1','hdisk2','hdisk3','hdisk4' ] },
+                 },
+     } # ebs field
   ----------------------------------------------------------------------
 
 
@@ -110,8 +115,10 @@ DOCUMENTATION/FILES
     Docs/Edelivery_Oracle_EBS_12.2.5.00_for_IBM_AIX_Download_Summary.htm
   Patches used can be found in the document in the appendix: 
     Docs/EBS 12.2.5_COOKBOOK.htm
-# The included html file, Docs/EBS 12.2.5_COOKBOOK.htm, is required
-  reading for more information on the oracle_ebs cookbook.
+# The included html file, Docs/EBS 12.2.5_COOKBOOK.mht, is required
+  reading for more information on the oracle_ebs cookbook. It contains
+  alot more detail, included disk space requirements and required
+  file systems.
 
 # Miscellaneous
 

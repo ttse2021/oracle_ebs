@@ -130,14 +130,14 @@ execute "save_original_opatch_to_11204" do
   not_if { File.directory?( orig_opatch ) }
 end
 
-target=orahome4
+target1=orahome4
 patchpat=node[:ebs][:db][:opatchn]
 execute "unzip_#{patchpat}" do
   user    dbuser
   group   dbgroup
   cwd     node[:ebs][:stage][:zips]
-  command "#{bindb}/getpatch.sh -p #{patchpat} -t #{target}\n"
-  not_if { File.directory?( "#{target}/OPatch" ) }
+  command "#{bindb}/getpatch.sh -p #{patchpat} -t #{target1}\n"
+  not_if { File.directory?( "#{target1}/OPatch" ) }
 end
 
   ############################################################
@@ -145,22 +145,22 @@ end
   #
 node[:ebs][:stage][:patches_11204].each do |patchnum|
 
-  target=node[:ebs][:dbm_patchdir]
+  tmptarget=node[:ebs][:dbm_patchdir]
   execute "unzip_#{patchnum}" do
     user    dbuser
     group   dbgroup
     cwd     node[:ebs][:stage][:zips]
-    command "#{bindb}/getpatch.sh -p #{patchnum} -t #{target}\n"
-    not_if { File.directory?( "#{target}/#{patchnum}" ) }
+    command "#{bindb}/getpatch.sh -p #{patchnum} -t #{tmptarget}\n"
+    not_if { File.directory?( "#{tmptarget}/#{patchnum}" ) }
   end
 
   log  "${opatch} lsinventory | fgrep #{patchnum}"
   execute "opatch_#{patchnum}" do
     user  dbuser
     group dbgroup
-    cwd   target
+    cwd   tmptarget
     command "#{orahome4}/OPatch/opatch napply "\
-            "#{target} -id #{patchnum} -silent -ocmrf #{resp_file}"
+            "#{tmptarget} -id #{patchnum} -silent -ocmrf #{resp_file}"
     not_if "#{opatch} lsinventory | fgrep #{patchnum}"
   end
 
@@ -171,20 +171,20 @@ end
   # bundled patches are handled one by napply
   #
 node[:ebs][:stage][:bundles_11204].each do |patchnum|
-  target=node[:ebs][:dbm_patchdir]
+  tmptarget2=node[:ebs][:dbm_patchdir]
   execute "unzip_#{patchnum}" do
     user    dbuser
     group   dbgroup
     cwd     node[:ebs][:stage][:zips]
-    command "#{bindb}/getpatch.sh -p #{patchnum} -t #{target}\n"
-    not_if { File.directory?( "#{target}/#{patchnum}" ) }
+    command "#{bindb}/getpatch.sh -p #{patchnum} -t #{tmptarget2}\n"
+    not_if { File.directory?( "#{tmptarget2}/#{patchnum}" ) }
   end
 
   execute "opatch_#{patchnum}" do
     user  dbuser
     group dbgroup
     # bundle must be done within itself with special options
-    cwd   "#{target}/#{patchnum}"
+    cwd   "#{tmptarget2}/#{patchnum}"
     command "#{orahome4}/OPatch/opatch napply "\
             "-skip_subset -skip_duplicate -silent -ocmrf #{resp_file} "\
             " > #{node[:ebs][:db][:outdir]}/out.#{patchnum} 2>&1"

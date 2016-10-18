@@ -172,4 +172,3 @@ directory ora_base do
   recursive true
   action :create
 end
-

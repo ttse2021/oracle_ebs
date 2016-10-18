@@ -53,3 +53,14 @@ unless node[:ebs][:vg][:swapspace_ignore]
 end
 
 
+  #########################################################
+  # CHECK MIN MEMORY NEEDS
+  # convert the OHAI total memory to integer in MEGS
+actualMemory = node[:memory][:total].sub('kB', '')
+actualMemory = actualMemory.to_i /  1024.to_i
+minMem=node[:ebs][:vg][:minimum_memory]
+
+if ( node[:ebs][:vg][:minimum_memory] > actualMemory )
+  Chef::Log.warn("Failed Memory Check: actualMemory:${actualMemory} is less than Minimum: #{node[:ebs][:vg][:minimum_memory]}")
+  raise "Not enough memory in system: #{actualMemory} MBs Required: #{minMem} MBs"
+end

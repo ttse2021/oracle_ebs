@@ -34,7 +34,7 @@ end
 
   target=ocommonhome
 patchpat=node[:ebs][:stage][:ocommon][:opatchn]
-execute "unzip_#{patchpat}" do
+execute "unzip_#{patchpat}_for_getpatch" do
   user    appuser
   group   appgroup
   cwd     node[:ebs][:stage][:zips]

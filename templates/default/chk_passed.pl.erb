@@ -72,11 +72,14 @@ my %success_expect = (
   "AutoConfig completed successfully" => 2,
   "Created the domain successfully" => 2,
   "EBS Registered successfully" => 2,
-  "Perl script txkChkEBSDependecies.pl got executed successfully" => 2,
   "Web Tier Utilities installed successfully" => 1,
   "Weblogic Server installed successfully" => 1,
   "Result : Passed" => 10,
 );
+
+# This one sometimes only comes out to have 1 entry found
+#
+#  "Perl script txkChkEBSDependecies.pl got executed successfully" => 2,
 
 open(LFILE,"${logname}") or die ("Cannot open $logname\n");
 while  ( <LFILE> ) {

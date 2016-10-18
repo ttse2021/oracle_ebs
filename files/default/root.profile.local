@@ -1,0 +1,30 @@
+#Settings for convenience!
+
+export MANPATH="/opt/freeware/man:$MANPATH"
+export WHERE=`hostname`
+export WHOME=`whoami`
+export PWD=`pwd`
+
+if [ -o interactive ]; then 
+  # Set up some vi parameters
+  #
+  EXINIT='set showmode showmatch dir=/tmp'
+  export EXINIT
+  set -o vi
+
+  function set_full_prompt { export PS1='$WHOME @ $WHERE: $PWD> '; }
+  function set_medium_prompt { export PS1='$WHOME @ ${WHERE%%.*}: $PWD> '; }
+  function set_short_prompt { export PS1='$WHOME @ ${WHERE%%.*}: ...${PWD##*/}> '; }
+  function display_message { if [ -o interactive ]; then printf "%s\n" "$1"; fi; }
+
+  alias fp='display_message "Setting FULL Prompt...";set_full_prompt'
+  alias mp='display_message "Setting MEDIUM Prompt...";set_medium_prompt'
+  alias sp='display_message "Setting SMALL Prompt...";set_short_prompt'
+
+  set -o vi
+  mytty=`tty | sed -e "s/\///g"`
+  export HISTFILE="$HOME/.hist_${mytty}"
+  set_medium_prompt; 
+fi
+
+alias setj='export _IBM_TOOLSDIR=/repos/person/jubal; . /repos/person/jubal/alias'
